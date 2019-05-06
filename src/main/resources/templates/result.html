@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>结果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<p th:text="'userName: ' + ${user.userName}" />
+<p th:text="'passWord: ' + ${user.passWord}" />
+<p th:text="'user: ' + ${#strings.toString(user)}" />
+<a href="/login">Submit another message</a>
+</body>
+</html>
