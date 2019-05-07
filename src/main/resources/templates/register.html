@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/mdui.css" th:href="@{/css/mdui.css}">
+    <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
+</head>
+
+<body class="mdui-theme-accent-orange">
+
+    <div class="mdui-container">
+        <form method="POST" action="#" class="register">
+            <div class="mdui-chip">
+                <span class="mdui-chip-icon mdui-color-theme-accent"><i
+                        class="mdui-icon material-icons">filter_b_and_w</i></span>
+                <span class="mdui-chip-title">AccountType</span>
+            </div>
+            <div class="select_acType">
+                <select class="mdui-select " mdui-select="{position: 'bottom'}">
+                    <option value="1">SavingAccount</option>
+                    <option value="2">CreditAccount</option>
+                    <option value="3">LoanSavingAccount</option>
+                    <option value="4">LoanCreditAccount</option>
+                </select>
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <i class="mdui-icon material-icons">person</i>
+                <label class="mdui-textfield-label">Username</label>
+                <input class="mdui-textfield-input"></input>
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <i class="mdui-icon material-icons">vpn_key</i>
+                <label class="mdui-textfield-label">Password</label>
+                <input class="mdui-textfield-input" type="password"></input>
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <i class="mdui-icon material-icons">spellcheck</i>
+                <label class="mdui-textfield-label">Confirm Password</label>
+                <input class="mdui-textfield-input" type="password"></input>
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <i class="mdui-icon material-icons">perm_identity</i>
+                <label class="mdui-textfield-label">Identity Number</label>
+                <input class="mdui-textfield-input"></input>
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <i class="mdui-icon material-icons">email</i>
+                <label class="mdui-textfield-label">E-mail</label>
+                <input class="mdui-textfield-input"></input>
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <i class="mdui-icon material-icons">edit_location</i>
+                <label class="mdui-textfield-label">Address</label>
+                <input class="mdui-textfield-input"></input>
+            </div>
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit"
+                type="submit">submit</button>
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent reset"
+                type="reset">reset</button>
+            <a href="index.html" th:href="@{/index}" class="back_register"><i
+                    class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,16 +1,36 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>用户登录</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<h1>Form</h1>
-<form action="#" th:action="@{/result}" th:object="${formBean}" method="post">
-	<p>username: <input type="text" th:field="*{userName}" /></p>
-	<p>password: <input type="text" th:field="*{passWord}" /></p>
-	<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
-</body>
-</html>
 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/mdui.css" th:href="@{/css/mdui.css}">
+    <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
+</head>
+
+<body class="mdui-theme-accent-orange">
+
+    <div class="mdui-container">
+        <form method="POST" action="/business.html" th:action="@{/business}" th:object="${formBean}" class="login">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <i class="mdui-icon material-icons">person</i>
+                <label class="mdui-textfield-label">Username</label>
+                <input class="mdui-textfield-input" type="text" th:field="*{userName}" ></input>
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <i class="mdui-icon material-icons">vpn_key</i>
+                <label class="mdui-textfield-label">Password</label>
+                <input class="mdui-textfield-input" type="password" th:field="*{passWord}"></input>
+            </div>
+
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit" type="submit">submit</button>
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent reset" type="reset">reset</button>
+            <a href="index.html" th:href="@{/index}" class="back_login"><i class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
+        </form>
+    </div>
+</body>
+
+</html>

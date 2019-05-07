@@ -1,0 +1,144 @@
+
+body{
+    background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+    background-attachment: fixed;
+}
+
+/* 注册页面 */
+.register{
+    margin: 0 auto;
+    width: 30%;
+    padding: 30px 40px 40px 30px;
+    border-radius: 5px;
+	box-shadow: 3px 3px 10px -2px #858282;
+	position: relative;
+	top: 10vh;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.mdui-textfield.mdui-textfield-floating-label {
+    padding-top: 5px; 
+}
+
+.mdui-chip{
+    position: relative;
+    left: 2%;
+}
+
+.select_acType{
+    position: relative;
+    left: 14%;
+    display: inline;
+}
+
+.submit{
+    width: 140px;
+    position: relative;
+    top: 2vh;
+    left: 0.5vw;
+}
+
+.reset{
+    width: 140px;
+    position: relative;
+    top: 2vh;
+    left: 6.5vw;
+}
+
+.back_register{
+    color: rgb(233, 125, 36);
+    position: relative;
+    left: -6.8vw;
+    top: 2vh;
+}
+/* 登录页面 */
+.login{
+    margin: 0 auto;
+    width: 30%;
+    padding: 5px 40px 40px 30px;
+    border-radius: 5px;
+	box-shadow: 3px 3px 10px -2px #858282;
+	position: relative;
+	top: 25vh;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.back_login{
+    color: rgb(233, 125, 36);
+    position: relative;
+    left: -6.8vw;
+    top: 2vh;
+}
+
+/* 主页 */
+.index{
+    margin: 0 auto;
+    width: 30%;
+    padding: 10px 60px 20px 60px;
+    border-radius: 5px;
+	box-shadow: 3px 3px 10px -2px #858282;
+	position: relative;
+	top: 25vh;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.index p{
+    text-align: center;
+    font-size: 20px;
+}
+
+.index a{
+    text-decoration: none;
+    margin: 5px;
+}
+
+/* 业务页面 */
+.business{
+    margin: 0 auto;
+    width: 30%;
+    padding: 30px 40px 40px 30px;
+    border-radius: 5px;
+	box-shadow: 3px 3px 10px -2px #858282;
+	position: relative;
+	top: 10vh;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+.mdui-table-fluid.business_info{
+    position: relative;
+    left: 5px;
+    margin-bottom: 10px;
+}
+
+.mdui-textfield.receive{
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 133px;
+    float: right;
+}
+
+.select_mode{
+    position: relative;
+    left: 27.5%; 
+    display: inline;
+}
+
+.data p{
+    margin: 0;
+    text-align: center;
+}
+
+.property{
+    margin: 0;
+    display: inline;
+    position: relative;
+    left: 10px;
+    color: rgb(240, 114, 12);
+    font-weight: bold;
+}
+
+.back_business{
+    color: rgb(233, 125, 36);
+    position: relative;
+    left: -6.8vw;
+    top: 2vh;
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bank Manager</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/mdui.css" th:href="@{/css/mdui.css}">
+    <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
+</head>
+
+<body class="mdui-theme-accent-orange">
+
+    <div class="mdui-container">
+        <div class="index">
+            <p>Welcome To Bank Manager</p>
+            <a href="login.html" th:href="@{/login}"><button class="mdui-btn mdui-btn-block mdui-color-theme-accent mdui-ripple">login</button></a>
+            <a href="register.html" th:href="@{/register}"><button class="mdui-btn mdui-btn-block mdui-color-theme-accent mdui-ripple">register</button></a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Business Page</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/mdui.css" th:href="@{/css/mdui.css}">
+    <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
+</head>
+
+<body class="mdui-theme-accent-orange">
+
+    <div class="mdui-container">
+        <form method="POST" action="#" class="business">
+            <div class="mdui-table-fluid business_info">
+                <table class="mdui-table mdui-table-hoverable">
+                    <tbody>
+                        <tr>
+                            <td><i class="mdui-icon material-icons">filter_b_and_w</i>
+                                <p class="property">Your Type</p>
+                            </td>
+                            <td class="data">
+                                <p th:text="${user.accountType}">SavingAccount</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="mdui-icon material-icons">label_outline</i>
+                                <p class="property">UserId</p>
+                            </td>
+                            <td class="data">
+                                <p th:text="${user.userId}">10001</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="mdui-icon material-icons">person</i>
+                                <p class="property">Username</p>
+                            </td>
+                            <td class="data">
+                                <p th:text="${user.userName}">ayahiro</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="mdui-icon material-icons">attach_money</i>
+                                <p class="property">Balance</p>
+                            </td>
+                            <td class="data">
+                                <p th:text="${user.balance}">999</p>
+                            </td>
+                        </tr>
+                        <tr th:if="${user.accountType=='CreditAccount' || user.accountType=='LoanCreditAccount'}">
+                            <td><i class="mdui-icon material-icons">monetization_on</i>
+                                <p class="property">Ceiling</p>
+                            </td>
+                            <td class="data">
+                                <p th:text="${user.ceiling}">null</p>
+                            </td>
+                        </tr>
+                        <tr th:if="${user.accountType=='LoanSavingAccount' || user.accountType=='LoanCreditAccount'}">
+                            <td><i class="mdui-icon material-icons">money_off</i>
+                                <p class="property">Loan</p>
+                            </td>
+                            <td class="data">
+                                <p th:text="${user.loan}">null</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="mdui-icon material-icons">format_list_bulleted</i>
+                                <p class="property">Mode</p>
+                            </td>
+                            <td class="data">
+                                <div class="select_mode">
+                                    <select class="mdui-select" mdui-select="{position: 'top'}">
+                                        <option value="1">Deposit</option>
+                                        <option value="2">Withdrawal</option>
+                                        <option value="3">request Loan</option>
+                                        <option value="4">Pay Loan</option>
+                                        <option value="5">Transfer</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="mdui-icon material-icons">edit</i>
+                                <p class="property">Amount</p>
+                            </td>
+                            <td class="data">
+                                <div class="mdui-textfield receive">
+                                    <input class="mdui-textfield-input" type="text" placeholder="Amount" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="mdui-icon material-icons">account_circle</i>
+                                <p class="property">Receiving</p>
+                            </td>
+                            <td class="data">
+                                <div class="mdui-textfield receive">
+                                    <input class="mdui-textfield-input" type="text" placeholder="Username" />
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit"
+                type="submit">submit</button>
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent reset"
+                type="reset">reset</button>
+            <a href="login.html" th:href="@{/login}" class="back_business"><i
+                    class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
+        </form>
+    </div>
+</body>
+
+</html>
