@@ -12,9 +12,8 @@
 </head>
 
 <body class="mdui-theme-accent-orange">
-
     <div class="mdui-container">
-        <form method="POST" action="#" class="business">
+        <form method="POST" action="#" th:action="@{/do_business}" class="business">
             <div class="mdui-table-fluid business_info">
                 <table class="mdui-table mdui-table-hoverable">
                     <tbody>
@@ -38,8 +37,11 @@
                             <td><i class="mdui-icon material-icons">person</i>
                                 <p class="property">Username</p>
                             </td>
-                            <td class="data">
-                                <p th:text="${user.userName}">ayahiro</p>
+                            <td>
+                                <p th:if="${#maps.containsKey(businessBean.error, 'fromName')}" th:text="${businessBean.error['fromName']}" class="warning_text2">this is warning</p>
+                                <div class="mdui-textfield receive">
+                                    <input  class="mdui-textfield-input" th:field="${businessBean.fromName}" placeholder="fromName"/>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -72,12 +74,12 @@
                             </td>
                             <td class="data">
                                 <div class="select_mode">
-                                    <select class="mdui-select" mdui-select="{position: 'top'}">
-                                        <option value="1">Deposit</option>
-                                        <option value="2">Withdrawal</option>
-                                        <option value="3">request Loan</option>
-                                        <option value="4">Pay Loan</option>
-                                        <option value="5">Transfer</option>
+                                    <select th:field="${businessBean.mode}" class="mdui-select" mdui-select="{position: 'top'}">
+                                        <option value="Deposit">Deposit</option>
+                                        <option value="Withdrawal">Withdrawal</option>
+                                        <option value="Request Loan">Request Loan</option>
+                                        <option value="Pay Loan">Pay Loan</option>
+                                        <option value="Transfer">Transfer</option>
                                     </select>
                                 </div>
                             </td>
@@ -86,9 +88,11 @@
                             <td><i class="mdui-icon material-icons">edit</i>
                                 <p class="property">Amount</p>
                             </td>
-                            <td class="data">
+                            <td>
+                                <p th:if="${#maps.containsKey(businessBean.error, 'amount')}"
+                                   th:text="${businessBean.error['amount']}" class="warning_text2">value must be +number!</p>
                                 <div class="mdui-textfield receive">
-                                    <input class="mdui-textfield-input" type="text" placeholder="Amount" />
+                                    <input th:field="${businessBean.amount}" class="mdui-textfield-input" type="text" placeholder="Amount" />
                                 </div>
                             </td>
                         </tr>
@@ -96,9 +100,11 @@
                             <td><i class="mdui-icon material-icons">account_circle</i>
                                 <p class="property">Receiving</p>
                             </td>
-                            <td class="data">
+                            <td>
+                                <p th:if="${#maps.containsKey(businessBean.error, 'toName')}"
+                                   th:text="${businessBean.error['toName']}" class="warning_text2">can not transfer to yourself!</p>
                                 <div class="mdui-textfield receive">
-                                    <input class="mdui-textfield-input" type="text" placeholder="Username" />
+                                    <input th:field="${businessBean.toName}" class="mdui-textfield-input" type="text" placeholder="toName" />
                                 </div>
                             </td>
                         </tr>
@@ -111,6 +117,9 @@
                 type="reset">reset</button>
             <a href="login.html" th:href="@{/login}" class="back_business"><i
                     class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
+            <div th:if="${message.status==false}" class="warning">
+                <p th:text="${message.info}"></p>
+            </div>
         </form>
     </div>
 </body>

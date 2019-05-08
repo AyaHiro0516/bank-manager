@@ -13,6 +13,9 @@ public interface AccountMapper {
                   @Param("userName") String userName, @Param("email") String email, @Param("address") String address,
                   @Param("balance") String balance);
 
+    @Select("SELECT COUNT(*) FROM ${accountType} WHERE userName=#{userName}")
+    long isRegister(@Param("accountType") String accountType,
+                    @Param("userName") String userName);
 
     @Update("UPDATE ${accountType} SET balance= #{amount} WHERE userName= #{userName}")
     void upDateBalance(@Param("accountType") String accountType,

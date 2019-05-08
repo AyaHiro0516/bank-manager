@@ -19,7 +19,7 @@ public class LoginService {
 
     private String[] acType={"CreditAccount", "LoanCreditAccount", "SavingAccount", "LoanSavingAccount"};
 
-    public Account findUser(String username, String password){
+    public Account getUserByNameAndPassWord(String username, String password){
         CreditAccount creditAccount=null;
         LoanCreditAccount loanCreditAccount=null;
         SavingAccount savingAccount=null;
@@ -49,6 +49,46 @@ public class LoginService {
                     break;
                 case "LoanSavingAccount":
                     loanSavingAccount=loanSavingAccountMapper.findUser(username, password);
+                    if (loanSavingAccount!=null) {
+                        loanSavingAccount.setAccountType("LoanSavingAccount");
+                        return loanSavingAccount;
+                    }
+                    break;
+            }
+        }
+        return null;
+    }
+
+    public Account getUserByName(String username){
+        CreditAccount creditAccount=null;
+        LoanCreditAccount loanCreditAccount=null;
+        SavingAccount savingAccount=null;
+        LoanSavingAccount loanSavingAccount=null;
+        for (String type:acType){
+            switch (type){
+                case "CreditAccount":
+                    creditAccount=creditAccountMapper.getUser(username);
+                    if (creditAccount!=null) {
+                        creditAccount.setAccountType("CreditAccount");
+                        return creditAccount;
+                    }
+                    break;
+                case "LoanCreditAccount":
+                    loanCreditAccount=loanCreditAccountMapper.getUser(username);
+                    if (loanCreditAccount!=null) {
+                        loanCreditAccount.setAccountType("LoanCreditAccount");
+                        return loanCreditAccount;
+                    }
+                    break;
+                case "SavingAccount":
+                    savingAccount=savingAccountMapper.getUser(username);
+                    if (savingAccount!=null) {
+                        savingAccount.setAccountType("SavingAccount");
+                        return savingAccount;
+                    }
+                    break;
+                case "LoanSavingAccount":
+                    loanSavingAccount=loanSavingAccountMapper.getUser(username);
                     if (loanSavingAccount!=null) {
                         loanSavingAccount.setAccountType("LoanSavingAccount");
                         return loanSavingAccount;

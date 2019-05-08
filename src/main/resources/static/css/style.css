@@ -10,14 +10,14 @@ body{
     width: 30%;
     padding: 30px 40px 40px 30px;
     border-radius: 5px;
-	box-shadow: 3px 3px 10px -2px #858282;
-	position: relative;
-	top: 10vh;
+    box-shadow: 3px 3px 10px -2px #858282;
+    position: relative;
+    top: 6vh;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
 .mdui-textfield.mdui-textfield-floating-label {
-    padding-top: 5px; 
+    padding-top: 5px;
 }
 
 .mdui-chip{
@@ -57,9 +57,9 @@ body{
     width: 30%;
     padding: 5px 40px 40px 30px;
     border-radius: 5px;
-	box-shadow: 3px 3px 10px -2px #858282;
-	position: relative;
-	top: 25vh;
+    box-shadow: 3px 3px 10px -2px #858282;
+    position: relative;
+    top: 25vh;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
@@ -70,15 +70,48 @@ body{
     top: 2vh;
 }
 
+.warning_text{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 14px;
+    position: relative;
+    left: 15%;
+    color: rgb(240, 66, 66);
+}
+.warning_text2{
+    width: 170px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 13px;
+    position: relative;
+    left: 20%;
+    color: rgb(240, 66, 66);
+    text-align: center;
+}
+.warning{
+    overflow: hidden;
+    width: 70%;
+    z-index: -10;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    box-shadow: 3px 3px 10px -2px #858282;
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    top: 100%;
+    left: 15%;
+}
+.warning p{
+    text-align: center;
+    color: rgb(240, 66, 66);
+}
 /* 主页 */
 .index{
     margin: 0 auto;
     width: 30%;
     padding: 10px 60px 20px 60px;
     border-radius: 5px;
-	box-shadow: 3px 3px 10px -2px #858282;
-	position: relative;
-	top: 25vh;
+    box-shadow: 3px 3px 10px -2px #858282;
+    position: relative;
+    top: 25vh;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
@@ -98,9 +131,9 @@ body{
     width: 30%;
     padding: 30px 40px 40px 30px;
     border-radius: 5px;
-	box-shadow: 3px 3px 10px -2px #858282;
-	position: relative;
-	top: 10vh;
+    box-shadow: 3px 3px 10px -2px #858282;
+    position: relative;
+    top: 3vh;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 .mdui-table-fluid.business_info{
@@ -118,7 +151,7 @@ body{
 
 .select_mode{
     position: relative;
-    left: 27.5%; 
+    left: 27.5%;
     display: inline;
 }
 

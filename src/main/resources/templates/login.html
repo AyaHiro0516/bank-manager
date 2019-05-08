@@ -14,7 +14,7 @@
 <body class="mdui-theme-accent-orange">
 
     <div class="mdui-container">
-        <form method="POST" action="/business.html" th:action="@{/business}" th:object="${formBean}" class="login">
+        <form method="POST" action="/business.html" th:action="@{/login/result}" th:object="${loginBean}" class="login">
             <div class="mdui-textfield mdui-textfield-floating-label">
                 <i class="mdui-icon material-icons">person</i>
                 <label class="mdui-textfield-label">Username</label>
@@ -29,6 +29,9 @@
             <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit" type="submit">submit</button>
             <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent reset" type="reset">reset</button>
             <a href="index.html" th:href="@{/index}" class="back_login"><i class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
+            <div th:if="${message.status==false}" class="warning">
+                <p th:text="${message.info}"></p>
+            </div>
         </form>
     </div>
 </body>
