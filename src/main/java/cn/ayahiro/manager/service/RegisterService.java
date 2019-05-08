@@ -13,14 +13,6 @@ import java.util.HashMap;
 public class RegisterService {
     @Resource(name = "accountMapper")
     private AccountMapper accountMapper;
-    @Resource(name = "creditAccountMapper")
-    private CreditAccountMapper creditAccountMapper;
-    @Resource(name = "loanCreditAccountMapper")
-    private LoanCreditAccountMapper loanCreditAccountMapper;
-    @Resource(name = "savingAccountMapper")
-    private SavingAccountMapper savingAccountMapper;
-    @Resource(name = "loanSavingAccountMapper")
-    private LoanSavingAccountMapper loanSavingAccountMapper;
 
     private String[] acType={"CreditAccount", "LoanCreditAccount", "SavingAccount", "LoanSavingAccount"};
 

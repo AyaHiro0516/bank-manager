@@ -117,7 +117,7 @@
                 type="reset">reset</button>
             <a href="login.html" th:href="@{/login}" class="back_business"><i
                     class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
-            <div th:if="${message.status==false}" class="warning">
+            <div class="warning">
                 <p th:text="${message.info}"></p>
             </div>
         </form>

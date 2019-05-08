@@ -1,5 +1,8 @@
 package cn.ayahiro.manager.controller;
 
+import cn.ayahiro.manager.exceptions.ATMException;
+import cn.ayahiro.manager.exceptions.BalanceNotEnoughException;
+import cn.ayahiro.manager.exceptions.LoanException;
 import cn.ayahiro.manager.model.Account;
 import cn.ayahiro.manager.model.formbean.BusinessBean;
 import cn.ayahiro.manager.model.formbean.Message;
@@ -29,8 +32,10 @@ public class BusinessController {
 
     @RequestMapping(path = {"/do_business"}, method = RequestMethod.POST)
     public String doBusiness(@ModelAttribute BusinessBean businessBean, Model model){
+        Account user=loginService.getUserByName(businessBean.getFromName());
+        Account toUser=loginService.getUserByName(businessBean.getToName());
+
         if (!registerService.checkBusinessBean(businessBean)){
-            Account user=loginService.getUserByName(businessBean.getFromName());
             model.addAttribute("message", new Message(false, "Incorrect input, re-enter, please."))
                     .addAttribute("businessBean", businessBean)
                     .addAttribute("user", user);
@@ -38,6 +43,33 @@ public class BusinessController {
             return "business";
         }
 
-        return "index";
+        Double amount=new Double(businessBean.getAmount());
+        Message message=new Message();
+        message.setInfo("success!");
+        try {
+            switch (businessBean.getMode()){
+                case "Deposit":
+                    businessService.deposit(user, amount);
+                    break;
+                case "Withdrawal":
+                    businessService.withdraw(user, amount);
+                    break;
+                case "Request Loan":
+                    businessService.requestLoan(user, amount);
+                    break;
+                case "Pay Loan":
+                    businessService.payLoan(user, amount);
+                    break;
+                case "Transfer":
+                    businessService.transfer(user, toUser, amount);
+                    break;
+            }
+        }catch (ATMException e){
+            message.setInfo(e.getMessage());
+        }
+        model.addAttribute("message", message)
+                .addAttribute("businessBean", businessBean)
+                .addAttribute("user", user);
+        return "business";
     }
 }
