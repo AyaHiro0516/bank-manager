@@ -11,7 +11,7 @@ public interface AccountMapper {
     void register(@Param("accountType") String accountType,
                   @Param("userId") long userId, @Param("passWord") String passWord, @Param("personId") String personId,
                   @Param("userName") String userName, @Param("email") String email, @Param("address") String address,
-                  @Param("balance") String balance);
+                  @Param("balance") double balance);
 
     @Select("SELECT COUNT(*) FROM ${accountType} WHERE userName=#{userName}")
     long isRegister(@Param("accountType") String accountType,

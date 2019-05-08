@@ -1,9 +1,5 @@
 package cn.ayahiro.manager.model.formbean;
 
-import cn.ayahiro.manager.service.RegisterService;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 import java.util.HashMap;
 
 public class BusinessBean {

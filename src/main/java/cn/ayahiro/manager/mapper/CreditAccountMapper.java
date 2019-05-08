@@ -1,6 +1,5 @@
 package cn.ayahiro.manager.mapper;
 
-import cn.ayahiro.manager.model.Account;
 import cn.ayahiro.manager.model.CreditAccount;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -25,14 +25,13 @@ public class LoginController {
 
     @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
     public String login(Model model){
-        LoginBean loginBean=new LoginBean();
-        model.addAttribute("loginBean", loginBean)
+        model.addAttribute("loginBean", new LoginBean())
                 .addAttribute("message",new Message());
         return "login";
     }
 
     @RequestMapping(path = {"/login/result"}, method = RequestMethod.POST)
-    public String result(@ModelAttribute LoginBean loginBean, Model model){
+    public String loginResult(@ModelAttribute LoginBean loginBean, Model model){
         Account user=loginService.getUserByNameAndPassWord(loginBean.getUserName(), loginBean.getPassWord());
         Message message=new Message();
         if (user==null){

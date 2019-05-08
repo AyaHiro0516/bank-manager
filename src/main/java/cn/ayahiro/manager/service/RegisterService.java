@@ -3,6 +3,8 @@ package cn.ayahiro.manager.service;
 import cn.ayahiro.manager.mapper.*;
 import cn.ayahiro.manager.model.Account;
 import cn.ayahiro.manager.model.formbean.BusinessBean;
+import cn.ayahiro.manager.model.formbean.RegisterBean;
+import cn.ayahiro.manager.utils.WebUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -53,8 +55,32 @@ public class RegisterService {
         }
         return flag;
     }
-    public void register(Account user) {
 
+    public boolean checkRegisterBean(RegisterBean registerBean){
+        boolean flag=true;
+        if(!registerBean.validate()){
+            if (isRegister(registerBean.getUserName())){
+                registerBean.getError().put("isRegister", "username has been registered!");
+            }
+            flag=false;
+        }else {
+            if (isRegister(registerBean.getUserName())){
+                registerBean.getError().put("isRegister", "username has been registered!");
+                flag=false;
+            }
+        }
+        return flag;
+    }
+
+    public void register(RegisterBean registerBean) {
+        String accountType=registerBean.getAccountType();
+        long userId= WebUtils.makeId();
+        String passWord=registerBean.getPassWord();
+        String personId=registerBean.getPersonId();
+        String userName=registerBean.getUserName();
+        String email=registerBean.getEmail();
+        String address=registerBean.getAddress();
+        accountMapper.register(accountType, userId, passWord, personId, userName, email, address, 0);
     }
 
     public boolean isRegister(String username){
