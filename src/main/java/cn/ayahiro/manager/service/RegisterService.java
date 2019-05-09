@@ -29,7 +29,7 @@ public class RegisterService {
                 if (toName == null || toName.trim().equals("")) {
                     error.put("toName", "empty value");
                 } else if (toName.equals(fromName)){
-                    error.put("toName", "can not transfer to yourself!");
+                    error.put("toName", "don't transfer to yourself!");
                 }else {
                     if (!isRegister(toName)){
                         error.put("toName", "user does not exit!");
@@ -43,7 +43,7 @@ public class RegisterService {
                     error.put("toName", "empty value");
                     flag=false;
                 } else if (toName.equals(fromName)){
-                    error.put("toName", "can not transfer to yourself!");
+                    error.put("toName", "don't transfer to yourself!");
                     flag=false;
                 }else {
                     if (!isRegister(toName)){

@@ -45,7 +45,7 @@ public class BusinessController {
 
         Double amount=new Double(businessBean.getAmount());
         Message message=new Message();
-        message.setInfo("success!");
+        message.setInfo("Success!");
         try {
             switch (businessBean.getMode()){
                 case "Deposit":

@@ -31,7 +31,7 @@ public class RegisterController {
             return "register";
         }
         Message message=new Message();
-        message.setInfo("success!");
+        message.setInfo("Success!");
         registerService.register(registerBean);
         model.addAttribute("message", message)
                 .addAttribute("registerBean", new RegisterBean());
