@@ -5,7 +5,7 @@ public class Message {
     private String info;
 
     public Message() {
-        this.status=true;
+        this.status = true;
     }
 
     public Message(boolean status, String info) {

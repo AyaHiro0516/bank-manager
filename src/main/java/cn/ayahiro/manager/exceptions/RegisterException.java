@@ -1,6 +1,6 @@
 package cn.ayahiro.manager.exceptions;
 
-public class RegisterException extends ATMException{
+public class RegisterException extends ATMException {
     public RegisterException() {
         super();
     }

@@ -1,7 +1,7 @@
 package cn.ayahiro.manager.model;
 
 import cn.ayahiro.manager.exceptions.ATMException;
-import cn.ayahiro.manager.utils.WebUtils;
+import cn.ayahiro.manager.utils.UserUtil;
 
 import java.io.Serializable;
 
@@ -20,16 +20,16 @@ abstract public class Account implements Serializable {
     }
 
     public Account(String passWord, String userName, String personId, String email, String address, double balance) {
-        try{
-            this.userId = WebUtils.makeId();
+        try {
+            this.userId = UserUtil.makeId();
             this.passWord = passWord;
             this.userName = userName;
             this.personId = personId;
             this.email = email;
             this.balance = balance;
-            this.address= address;
-            this.isOnline=false;
-        }catch (Exception e) {
+            this.address = address;
+            this.isOnline = false;
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -81,6 +81,7 @@ abstract public class Account implements Serializable {
     public void setAddress(String adress) {
         this.address = adress;
     }
+
     public double getBalance() {
         return balance;
     }
@@ -94,8 +95,8 @@ abstract public class Account implements Serializable {
     }
 
     public Account setAccountType(String accountType) {
-        Account updateAC=this;
-        updateAC.accountType=accountType;
+        Account updateAC = this;
+        updateAC.accountType = accountType;
         return updateAC;
     }
 
@@ -107,11 +108,12 @@ abstract public class Account implements Serializable {
         isOnline = online;
     }
 
-    final public Account deposit(double amount){
-        Account updateAC=this;
-        updateAC.setBalance(this.balance+amount);
+    final public Account deposit(double amount) {
+        Account updateAC = this;
+        updateAC.setBalance(this.balance + amount);
         return updateAC;
     }
+
     public abstract Account withdraw(double amount) throws ATMException;
 
 

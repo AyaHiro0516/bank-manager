@@ -101,48 +101,4 @@ public class RegisterBean {
                 ", address='" + address + '\'' +
                 '}';
     }
-
-    /*用于判断表单提交过来的数据是否合法*/
-    public boolean validate() {
-        //用户名不能为空，并且要是3-8的字符 abcdABcd
-        boolean flag=true;
-        if (this.userName == null || this.userName.trim().equals("")) {
-            error.put("userName", "empty value or wrong input!");
-            flag=false;
-
-        } else {
-            if (!this.userName.matches("[a-zA-Z]{3,8}")) {
-                error.put("userName", "empty value or wrong input!");
-                flag=false;
-            }
-        }
-
-        //密码不能为空，并且要是3-8的数字
-        if (this.passWord == null || this.passWord.trim().equals("")) {
-            error.put("passWord", "empty value or wrong input!");
-            flag=false;
-        } else {
-            if (!this.passWord.matches("\\d{3,8}")) {
-                error.put("passWord", "empty value or wrong input!");
-                flag=false;
-            }
-        }
-
-        //两次密码要一致
-        if (this.passWord2 != null && !this.passWord2.trim().equals("")) {
-            if (!this.passWord2.equals(this.passWord)) {
-                error.put("passWord2", "inconsistent password!");
-                flag=false;
-            }
-        }
-
-        //邮箱可以为空，如果为空就必须合法
-        if (this.email != null && !this.email.trim().equals("")) {
-            if (!this.email.matches("\\w+@\\w+(\\.\\w+)+")) {
-                error.put("email", "the mailbox format is illegal!");
-                flag=false;
-            }
-        }
-        return flag;
-    }
 }

@@ -69,18 +69,4 @@ public class BusinessBean {
                 ", mode='" + mode + '\'' +
                 '}';
     }
-    public boolean validate() {
-        boolean flag=true;
-        if (this.amount == null || this.amount.trim().equals("")) {
-            error.put("amount", "empty value!");
-            flag=false;
-
-        } else {
-            if (!this.amount.matches("^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$")) {
-                error.put("amount", "value must be +number!");
-                flag=false;
-            }
-        }
-        return flag;
-    }
 }

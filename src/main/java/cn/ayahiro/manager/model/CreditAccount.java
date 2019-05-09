@@ -3,15 +3,17 @@ package cn.ayahiro.manager.model;
 import cn.ayahiro.manager.exceptions.ATMException;
 import cn.ayahiro.manager.exceptions.BalanceNotEnoughException;
 
-public class CreditAccount extends Account{
-    public CreditAccount(){
+public class CreditAccount extends Account {
+    public CreditAccount() {
         super();
         this.setCeiling(0);
     }
-    public CreditAccount(String password, String name, String personId, String email, String adress, double balance){
+
+    public CreditAccount(String password, String name, String personId, String email, String adress, double balance) {
         super(password, name, personId, email, adress, balance);
         this.setCeiling(0);
     }
+
     private double ceiling;
 
     public double getCeiling() {
@@ -23,17 +25,17 @@ public class CreditAccount extends Account{
     }
 
     @Override
-    public CreditAccount withdraw(double amount) throws ATMException{
-        CreditAccount updateAC=this;
-        double delta=this.getBalance()-amount;
-        if (delta<0){
-            if(delta >= -this.getCeiling()){
+    public CreditAccount withdraw(double amount) throws ATMException {
+        CreditAccount updateAC = this;
+        double delta = this.getBalance() - amount;
+        if (delta < 0) {
+            if (delta >= -this.getCeiling()) {
                 this.setBalance(delta);
-            }else{
+            } else {
                 throw new BalanceNotEnoughException("透支余额不足，取款失败。");
                 //this.setBalance(-this.getCeiling());   //取钱透支不足  封顶
             }
-        }else {
+        } else {
             this.setBalance(delta);
         }
         return updateAC;
@@ -41,7 +43,7 @@ public class CreditAccount extends Account{
 
     @Override
     public String toString() {
-        return "CreditAccount{ " +super.toString()+
+        return "CreditAccount{ " + super.toString() +
                 ", ceiling=" + ceiling +
                 '}';
     }

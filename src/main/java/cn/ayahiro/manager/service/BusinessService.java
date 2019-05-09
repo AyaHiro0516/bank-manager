@@ -21,48 +21,46 @@ public class BusinessService {
         accountMapper.upDateBalance(user.getAccountType(), user.getUserName(), user.getBalance());
     }
 
-    public void withdraw(Account user, double amount)throws ATMException {
+    public void withdraw(Account user, double amount) throws ATMException {
         user.withdraw(amount);
         accountMapper.upDateBalance(user.getAccountType(), user.getUserName(), user.getBalance());
     }
 
-    public void requestLoan(Account user, double amount)throws ATMException {
-        String username=user.getUserName();
-        if (user instanceof LoanCreditAccount){
+    public void requestLoan(Account user, double amount) throws ATMException {
+        String username = user.getUserName();
+        if (user instanceof LoanCreditAccount) {
             ((LoanCreditAccount) user).requestLoan(amount);
             accountMapper.upDateLoan(user.getAccountType(), username, ((LoanCreditAccount) user).getLoan());
-        }
-        else if (user instanceof LoanSavingAccount){
+        } else if (user instanceof LoanSavingAccount) {
             ((LoanSavingAccount) user).requestLoan(amount);
             accountMapper.upDateLoan(user.getAccountType(), username, ((LoanCreditAccount) user).getLoan());
-        }else {
+        } else {
             throw new LoanException("无借贷功能。");
         }
         accountMapper.upDateBalance(user.getAccountType(), username, user.getBalance());
     }
 
-    public void payLoan(Account user, double amount)throws ATMException {
-        String username=user.getUserName();
-        if (user instanceof LoanCreditAccount){
+    public void payLoan(Account user, double amount) throws ATMException {
+        String username = user.getUserName();
+        if (user instanceof LoanCreditAccount) {
             ((LoanCreditAccount) user).payLoan(amount);
             accountMapper.upDateLoan(user.getAccountType(), username, ((LoanCreditAccount) user).getLoan());
-        }
-        else if (user instanceof LoanSavingAccount){
+        } else if (user instanceof LoanSavingAccount) {
             ((LoanSavingAccount) user).payLoan(amount);
             accountMapper.upDateLoan(user.getAccountType(), username, ((LoanCreditAccount) user).getLoan());
-        }else {
+        } else {
             throw new LoanException("无借贷功能。");
         }
         accountMapper.upDateBalance(user.getAccountType(), username, user.getBalance());
     }
 
-    public void transfer(Account fromUser, Account toUser, double amount)throws ATMException{
-        if (fromUser.getBalance()>=amount){
-            fromUser.setBalance(fromUser.getBalance()-amount);
-            toUser.setBalance(toUser.getBalance()+amount);
+    public void transfer(Account fromUser, Account toUser, double amount) throws ATMException {
+        if (fromUser.getBalance() >= amount) {
+            fromUser.setBalance(fromUser.getBalance() - amount);
+            toUser.setBalance(toUser.getBalance() + amount);
             accountMapper.upDateBalance(fromUser.getAccountType(), fromUser.getUserName(), fromUser.getBalance());
             accountMapper.upDateBalance(toUser.getAccountType(), toUser.getUserName(), toUser.getBalance());
-        }else {
+        } else {
             throw new BalanceNotEnoughException("转账者余额不足。");
         }
     }

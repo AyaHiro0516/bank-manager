@@ -19,28 +19,28 @@ public class LoginController {
     private LoginService loginService;
 
     @RequestMapping(path = {"/index"}, method = RequestMethod.GET)
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
-    public String login(Model model){
+    public String login(Model model) {
         model.addAttribute("loginBean", new LoginBean())
-                .addAttribute("message",new Message());
+                .addAttribute("message", new Message());
         return "login";
     }
 
     @RequestMapping(path = {"/login/result"}, method = RequestMethod.POST)
-    public String loginResult(@ModelAttribute LoginBean loginBean, Model model){
-        Account user=loginService.getUserByNameAndPassWord(loginBean.getUserName(), loginBean.getPassWord());
-        Message message=new Message();
-        if (user==null){
+    public String loginResult(@ModelAttribute LoginBean loginBean, Model model) {
+        Account user = loginService.getUserByNameAndPassWord(loginBean.getUserName(), loginBean.getPassWord());
+        Message message = new Message();
+        if (user == null) {
             message.setStatus(false).setInfo("Wrong username or password!");
             model.addAttribute("message", message);
             return "login";
         }
         //message.setStatus(false).setInfo("from /result");
-        BusinessBean businessBean=new BusinessBean();
+        BusinessBean businessBean = new BusinessBean();
         model.addAttribute("businessBean", businessBean)
                 .addAttribute("user", user)
                 .addAttribute("message", message);

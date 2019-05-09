@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository("loanSavingAccountMapper")
-public interface LoanSavingAccountMapper extends AccountMapper{
+public interface LoanSavingAccountMapper extends AccountMapper {
     @Select({"SELECT * FROM LoanSavingAccount WHERE userName= #{userName} AND passWord= #{passWord}"})
     LoanSavingAccount findUser(@Param("userName") String username, @Param("passWord") String password);
 

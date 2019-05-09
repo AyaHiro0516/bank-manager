@@ -2,6 +2,7 @@ package cn.ayahiro.manager.service;
 
 import cn.ayahiro.manager.mapper.*;
 import cn.ayahiro.manager.model.*;
+import cn.ayahiro.manager.utils.UserUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,39 +18,40 @@ public class LoginService {
     @Resource(name = "loanSavingAccountMapper")
     private LoanSavingAccountMapper loanSavingAccountMapper;
 
-    private String[] acType={"CreditAccount", "LoanCreditAccount", "SavingAccount", "LoanSavingAccount"};
+    private String[] acType = {"CreditAccount", "LoanCreditAccount", "SavingAccount", "LoanSavingAccount"};
 
-    public Account getUserByNameAndPassWord(String username, String password){
-        CreditAccount creditAccount=null;
-        LoanCreditAccount loanCreditAccount=null;
-        SavingAccount savingAccount=null;
-        LoanSavingAccount loanSavingAccount=null;
-        for (String type:acType){
-            switch (type){
+    public Account getUserByNameAndPassWord(String username, String password) {
+        CreditAccount creditAccount = null;
+        LoanCreditAccount loanCreditAccount = null;
+        SavingAccount savingAccount = null;
+        LoanSavingAccount loanSavingAccount = null;
+        String md5_str= UserUtil.getMD5(password);
+        for (String type : acType) {
+            switch (type) {
                 case "CreditAccount":
-                    creditAccount=creditAccountMapper.findUser(username, password);
-                    if (creditAccount!=null) {
+                    creditAccount = creditAccountMapper.findUser(username, md5_str);
+                    if (creditAccount != null) {
                         creditAccount.setAccountType("CreditAccount");
                         return creditAccount;
                     }
                     break;
                 case "LoanCreditAccount":
-                    loanCreditAccount=loanCreditAccountMapper.findUser(username, password);
-                    if (loanCreditAccount!=null) {
+                    loanCreditAccount = loanCreditAccountMapper.findUser(username, md5_str);
+                    if (loanCreditAccount != null) {
                         loanCreditAccount.setAccountType("LoanCreditAccount");
                         return loanCreditAccount;
                     }
                     break;
                 case "SavingAccount":
-                    savingAccount=savingAccountMapper.findUser(username, password);
-                    if (savingAccount!=null) {
+                    savingAccount = savingAccountMapper.findUser(username, md5_str);
+                    if (savingAccount != null) {
                         savingAccount.setAccountType("SavingAccount");
                         return savingAccount;
                     }
                     break;
                 case "LoanSavingAccount":
-                    loanSavingAccount=loanSavingAccountMapper.findUser(username, password);
-                    if (loanSavingAccount!=null) {
+                    loanSavingAccount = loanSavingAccountMapper.findUser(username, md5_str);
+                    if (loanSavingAccount != null) {
                         loanSavingAccount.setAccountType("LoanSavingAccount");
                         return loanSavingAccount;
                     }
@@ -59,37 +61,37 @@ public class LoginService {
         return null;
     }
 
-    public Account getUserByName(String username){
-        CreditAccount creditAccount=null;
-        LoanCreditAccount loanCreditAccount=null;
-        SavingAccount savingAccount=null;
-        LoanSavingAccount loanSavingAccount=null;
-        for (String type:acType){
-            switch (type){
+    public Account getUserByName(String username) {
+        CreditAccount creditAccount = null;
+        LoanCreditAccount loanCreditAccount = null;
+        SavingAccount savingAccount = null;
+        LoanSavingAccount loanSavingAccount = null;
+        for (String type : acType) {
+            switch (type) {
                 case "CreditAccount":
-                    creditAccount=creditAccountMapper.getUser(username);
-                    if (creditAccount!=null) {
+                    creditAccount = creditAccountMapper.getUser(username);
+                    if (creditAccount != null) {
                         creditAccount.setAccountType("CreditAccount");
                         return creditAccount;
                     }
                     break;
                 case "LoanCreditAccount":
-                    loanCreditAccount=loanCreditAccountMapper.getUser(username);
-                    if (loanCreditAccount!=null) {
+                    loanCreditAccount = loanCreditAccountMapper.getUser(username);
+                    if (loanCreditAccount != null) {
                         loanCreditAccount.setAccountType("LoanCreditAccount");
                         return loanCreditAccount;
                     }
                     break;
                 case "SavingAccount":
-                    savingAccount=savingAccountMapper.getUser(username);
-                    if (savingAccount!=null) {
+                    savingAccount = savingAccountMapper.getUser(username);
+                    if (savingAccount != null) {
                         savingAccount.setAccountType("SavingAccount");
                         return savingAccount;
                     }
                     break;
                 case "LoanSavingAccount":
-                    loanSavingAccount=loanSavingAccountMapper.getUser(username);
-                    if (loanSavingAccount!=null) {
+                    loanSavingAccount = loanSavingAccountMapper.getUser(username);
+                    if (loanSavingAccount != null) {
                         loanSavingAccount.setAccountType("LoanSavingAccount");
                         return loanSavingAccount;
                     }

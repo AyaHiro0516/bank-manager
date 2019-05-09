@@ -31,11 +31,11 @@ public class BusinessController {
     private BusinessService businessService;
 
     @RequestMapping(path = {"/do_business"}, method = RequestMethod.POST)
-    public String doBusiness(@ModelAttribute BusinessBean businessBean, Model model){
-        Account user=loginService.getUserByName(businessBean.getFromName());
-        Account toUser=loginService.getUserByName(businessBean.getToName());
+    public String doBusiness(@ModelAttribute BusinessBean businessBean, Model model) {
+        Account user = loginService.getUserByName(businessBean.getFromName());
+        Account toUser = loginService.getUserByName(businessBean.getToName());
 
-        if (!registerService.checkBusinessBean(businessBean)){
+        if (!registerService.checkBusinessBean(businessBean)) {
             model.addAttribute("message", new Message(false, "Incorrect input, re-enter, please."))
                     .addAttribute("businessBean", businessBean)
                     .addAttribute("user", user);
@@ -43,11 +43,11 @@ public class BusinessController {
             return "business";
         }
 
-        Double amount=new Double(businessBean.getAmount());
-        Message message=new Message();
+        Double amount = new Double(businessBean.getAmount());
+        Message message = new Message();
         message.setInfo("Success!");
         try {
-            switch (businessBean.getMode()){
+            switch (businessBean.getMode()) {
                 case "Deposit":
                     businessService.deposit(user, amount);
                     break;
@@ -64,7 +64,7 @@ public class BusinessController {
                     businessService.transfer(user, toUser, amount);
                     break;
             }
-        }catch (ATMException e){
+        } catch (ATMException e) {
             message.setInfo(e.getMessage());
         }
         model.addAttribute("message", message)
