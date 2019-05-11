@@ -7,123 +7,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Business Page</title>
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/google.css" th:href="@{/css/google.css}">
     <link rel="stylesheet" href="../static/css/mdui.css" th:href="@{/css/mdui.css}">
-    <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
+    <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 </head>
 
 <body class="mdui-theme-accent-orange">
-    <div class="mdui-container">
-        <form method="POST" action="#" th:action="@{/do_business}" class="business">
-            <button class="refresh mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent"
-                    type="submit"><i class="mdui-icon material-icons">refresh</i></button>
-            <div class="mdui-table-fluid business_info">
-                <table class="mdui-table mdui-table-hoverable">
-                    <tbody>
-                        <tr>
-                            <td><i class="mdui-icon material-icons">filter_b_and_w</i>
-                                <p class="property">Your Type</p>
-                            </td>
-                            <td class="data">
-                                <p th:text="${user.accountType}">SavingAccount</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="mdui-icon material-icons">label_outline</i>
-                                <p class="property">UserId</p>
-                            </td>
-                            <td class="data">
-                                <p th:text="${user.userId}">10001</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="mdui-icon material-icons">person</i>
-                                <p class="property">Username</p>
-                            </td>
-                            <td>
-                                <p th:if="${#maps.containsKey(businessBean.error, 'fromName')}" th:text="${businessBean.error['fromName']}" class="warning_text2">this is warning</p>
-                                <div class="mdui-textfield receive">
-                                    <input  class="mdui-textfield-input" th:field="${businessBean.fromName}" placeholder="fromName"/>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="mdui-icon material-icons">attach_money</i>
-                                <p class="property">Balance</p>
-                            </td>
-                            <td class="data">
-                                <p th:text="${user.balance}">999</p>
-                            </td>
-                        </tr>
-                        <tr th:if="${user.accountType=='CreditAccount' || user.accountType=='LoanCreditAccount'}">
-                            <td><i class="mdui-icon material-icons">monetization_on</i>
-                                <p class="property">Ceiling</p>
-                            </td>
-                            <td class="data">
-                                <p th:text="${user.ceiling}">null</p>
-                            </td>
-                        </tr>
-                        <tr th:if="${user.accountType=='LoanSavingAccount' || user.accountType=='LoanCreditAccount'}">
-                            <td><i class="mdui-icon material-icons">money_off</i>
-                                <p class="property">Loan</p>
-                            </td>
-                            <td class="data">
-                                <p th:text="${user.loan}">null</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="mdui-icon material-icons">format_list_bulleted</i>
-                                <p class="property">Mode</p>
-                            </td>
-                            <td class="data">
-                                <div class="select_mode">
-                                    <select th:field="${businessBean.mode}" class="mdui-select" mdui-select="{position: 'top'}">
-                                        <option value="Deposit">Deposit</option>
-                                        <option value="Withdrawal">Withdrawal</option>
-                                        <option value="Request Loan">Request Loan</option>
-                                        <option value="Pay Loan">Pay Loan</option>
-                                        <option value="Transfer">Transfer</option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="mdui-icon material-icons">edit</i>
-                                <p class="property">Amount</p>
-                            </td>
-                            <td>
-                                <p th:if="${#maps.containsKey(businessBean.error, 'amount')}"
-                                   th:text="${businessBean.error['amount']}" class="warning_text2">value must be +number!</p>
-                                <div class="mdui-textfield receive">
-                                    <input th:field="${businessBean.amount}" class="mdui-textfield-input" type="text" placeholder="Amount" />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="mdui-icon material-icons">account_circle</i>
-                                <p class="property">Receiving</p>
-                            </td>
-                            <td>
-                                <p th:if="${#maps.containsKey(businessBean.error, 'toName')}"
-                                   th:text="${businessBean.error['toName']}" class="warning_text2">can not transfer to yourself!</p>
-                                <div class="mdui-textfield receive">
-                                    <input th:field="${businessBean.toName}" class="mdui-textfield-input" type="text" placeholder="toName" />
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit"
-                type="submit">submit</button>
-            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent reset"
-                type="reset">reset</button>
-            <a href="login.html" th:href="@{/login}" class="back_business"><i
-                    class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
-            <div class="warning">
-                <p th:text="${message.info}"></p>
-            </div>
-        </form>
-    </div>
+<div class="mdui-container">
+    <form method="POST" action="#" th:action="@{/do_business}" class="business">
+        <input type="hidden" id="name"></input>
+        <script th:inline="javascript">
+            var user = [[${user.userName}]];
+            $("#name").val(user);
+            //alert("Be sure to enter your name: [" +user+ "] in the [ Username ] input box, otherwise the system will go wrong!");
+        </script>
+        <button class="refresh mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent"
+                type="submit"><i class="mdui-icon material-icons">refresh</i></button>
+        <div class="mdui-table-fluid business_info">
+            <table class="mdui-table mdui-table-hoverable">
+                <tbody>
+                <tr>
+                    <td><i class="mdui-icon material-icons">filter_b_and_w</i>
+                        <p class="property">Your Type</p>
+                    </td>
+                    <td class="data">
+                        <p th:text="${user.accountType}">SavingAccount</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="mdui-icon material-icons">label_outline</i>
+                        <p class="property">UserId</p>
+                    </td>
+                    <td class="data">
+                        <p th:text="${user.userId}">10001</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="mdui-icon material-icons">person</i>
+                        <p class="property">Username</p>
+                    </td>
+                    <td>
+                        <p th:if="${#maps.containsKey(businessBean.error, 'fromName')}"
+                           th:text="${businessBean.error['fromName']}" class="warning_text2">this is warning</p>
+                        <div class="mdui-textfield receive">
+                            <input class="fromName_in mdui-textfield-input" th:field="${businessBean.fromName}"
+                                   placeholder="fromName"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="mdui-icon material-icons">attach_money</i>
+                        <p class="property">Balance</p>
+                    </td>
+                    <td class="data">
+                        <p th:text="${user.balance}">999</p>
+                    </td>
+                </tr>
+                <tr th:if="${user.accountType=='CreditAccount' || user.accountType=='LoanCreditAccount'}">
+                    <td><i class="mdui-icon material-icons">monetization_on</i>
+                        <p class="property">Ceiling</p>
+                    </td>
+                    <td class="data">
+                        <p th:text="${user.ceiling}">null</p>
+                    </td>
+                </tr>
+                <tr th:if="${user.accountType=='LoanSavingAccount' || user.accountType=='LoanCreditAccount'}">
+                    <td><i class="mdui-icon material-icons">money_off</i>
+                        <p class="property">Loan</p>
+                    </td>
+                    <td class="data">
+                        <p th:text="${user.loan}">null</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="mdui-icon material-icons">format_list_bulleted</i>
+                        <p class="property">Mode</p>
+                    </td>
+                    <td class="data">
+                        <div class="select_mode">
+                            <select th:field="${businessBean.mode}" class="mdui-select" mdui-select="{position: 'top'}">
+                                <option value="Deposit">Deposit</option>
+                                <option value="Withdrawal">Withdrawal</option>
+                                <option value="Request Loan">Request Loan</option>
+                                <option value="Pay Loan">Pay Loan</option>
+                                <option value="Transfer">Transfer</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="mdui-icon material-icons">edit</i>
+                        <p class="property">Amount</p>
+                    </td>
+                    <td>
+                        <p th:if="${#maps.containsKey(businessBean.error, 'amount')}"
+                           th:text="${businessBean.error['amount']}" class="warning_text2">value must be +number!</p>
+                        <div class="mdui-textfield receive">
+                            <input th:field="${businessBean.amount}" class="amount_in mdui-textfield-input" type="text"
+                                   placeholder="Amount"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="mdui-icon material-icons">account_circle</i>
+                        <p class="property">Receiving</p>
+                    </td>
+                    <td>
+                        <p th:if="${#maps.containsKey(businessBean.error, 'toName')}"
+                           th:text="${businessBean.error['toName']}" class="warning_text2">can not transfer to
+                            yourself!</p>
+                        <div class="mdui-textfield receive">
+                            <input th:field="${businessBean.toName}" class="toName_in mdui-textfield-input" type="text"
+                                   placeholder="toName"/>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit"
+                type="submit">submit
+        </button>
+        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent reset"
+                type="reset">reset
+        </button>
+        <a href="login.html" th:href="@{/login}" class="back_business"><i
+                class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
+        <div class="warning">
+            <p th:text="${message.info}"></p>
+        </div>
+    </form>
+</div>
+
+<script src="https://unpkg.com/popper.js@1" th:src="@{https://unpkg.com/popper.js@1}"></script>
+<script src="https://unpkg.com/tippy.js@4" th:src="@{https://unpkg.com/tippy.js@4}"></script>
+<script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
+<script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
 </body>
 
 </html>

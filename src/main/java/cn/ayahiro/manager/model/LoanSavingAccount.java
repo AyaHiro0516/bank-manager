@@ -9,7 +9,7 @@ public class LoanSavingAccount extends SavingAccount implements Loanable {
 
     public void setLoan(double loan) throws ATMException {
         if (loan < 0) {
-            throw new LoanException("贷款额不能为负值，设置失败。");
+            throw new LoanException("The loan amount cannot be negative and the setting fails.");
         } else this.loan = loan;
     }
 
@@ -33,8 +33,8 @@ public class LoanSavingAccount extends SavingAccount implements Loanable {
             if (this.loan >= money) {
                 this.loan -= money;
                 this.setBalance(this.getBalance() - money);
-            } else throw new LoanException("还款额大于贷款额，还贷失败。");
-        } else throw new BalanceNotEnoughException("余额不足，还贷失败。");
+            } else throw new LoanException("The repayment amount is greater than the loan amount.");
+        } else throw new BalanceNotEnoughException("Insufficient balance, repayment failed.");
     }
 
     @Override

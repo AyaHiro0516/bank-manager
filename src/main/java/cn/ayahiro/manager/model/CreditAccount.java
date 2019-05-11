@@ -32,7 +32,7 @@ public class CreditAccount extends Account {
             if (delta >= -this.getCeiling()) {
                 this.setBalance(delta);
             } else {
-                throw new BalanceNotEnoughException("透支余额不足，取款失败。");
+                throw new BalanceNotEnoughException("Insufficient balance of overdraft, withdrawal failed.");
                 //this.setBalance(-this.getCeiling());   //取钱透支不足  封顶
             }
         } else {

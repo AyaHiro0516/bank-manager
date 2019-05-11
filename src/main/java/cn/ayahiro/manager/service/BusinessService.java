@@ -35,7 +35,7 @@ public class BusinessService {
             ((LoanSavingAccount) user).requestLoan(amount);
             accountMapper.upDateLoan(user.getAccountType(), username, ((LoanCreditAccount) user).getLoan());
         } else {
-            throw new LoanException("无借贷功能。");
+            throw new LoanException("No loan function.");
         }
         accountMapper.upDateBalance(user.getAccountType(), username, user.getBalance());
     }
@@ -49,7 +49,7 @@ public class BusinessService {
             ((LoanSavingAccount) user).payLoan(amount);
             accountMapper.upDateLoan(user.getAccountType(), username, ((LoanCreditAccount) user).getLoan());
         } else {
-            throw new LoanException("无借贷功能。");
+            throw new LoanException("No loan function.");
         }
         accountMapper.upDateBalance(user.getAccountType(), username, user.getBalance());
     }
@@ -61,7 +61,7 @@ public class BusinessService {
             accountMapper.upDateBalance(fromUser.getAccountType(), fromUser.getUserName(), fromUser.getBalance());
             accountMapper.upDateBalance(toUser.getAccountType(), toUser.getUserName(), toUser.getBalance());
         } else {
-            throw new BalanceNotEnoughException("转账者余额不足。");
+            throw new BalanceNotEnoughException("Insufficient transferor balance.");
         }
     }
 }
