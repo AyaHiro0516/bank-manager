@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="../static/css/google.css" th:href="@{/css/google.css}">
     <link rel="stylesheet" href="../static/css/mdui.css" th:href="@{/css/mdui.css}">
-    <!--<script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>-->
+    <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
     <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
 </head>
 
@@ -136,7 +136,7 @@
         <a href="login.html" th:href="@{/login}" class="back_business"><i
                 class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
         <div class="warning">
-            <p th:text="${message.info}"></p>
+            <p class="warning_text3" th:text="${message.info}"></p>
         </div>
     </form>
 </div>
@@ -149,7 +149,8 @@
     function fire_ajax_submit() {
         var businessBean = {};
         businessBean["fromName"] = $('#name').val();
-        alert(JSON.stringify(businessBean));
+        $('.warning_text2').hide();
+        $('.warning_text3').html("");
         $.ajax({
             type: 'POST',
             contentType: "application/json",
