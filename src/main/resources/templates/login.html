@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="../static/css/google.css" th:href="@{/css/google.css}">
     <link rel="stylesheet" href="../static/css/mdui.css" th:href="@{/css/mdui.css}">
-    <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <!--<script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>-->
+    <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
 </head>
 
 <body class="mdui-theme-accent-orange">
@@ -19,12 +20,12 @@
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">person</i>
             <label class="mdui-textfield-label">Username</label>
-            <input class="mdui-textfield-input" type="text" th:field="*{userName}"></input>
+            <input id="userName" class="mdui-textfield-input" type="text" th:field="*{userName}"></input>
         </div>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">vpn_key</i>
             <label class="mdui-textfield-label">Password</label>
-            <input class="mdui-textfield-input" type="password" th:field="*{passWord}"></input>
+            <input id="passWord" class="mdui-textfield-input" type="password" th:field="*{passWord}"></input>
         </div>
 
         <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit" type="submit">submit

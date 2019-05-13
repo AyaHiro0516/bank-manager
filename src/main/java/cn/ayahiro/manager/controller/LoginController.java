@@ -1,17 +1,18 @@
 package cn.ayahiro.manager.controller;
 
 import cn.ayahiro.manager.model.Account;
+import cn.ayahiro.manager.model.formbean.AjaxResponseBody;
 import cn.ayahiro.manager.model.formbean.BusinessBean;
 import cn.ayahiro.manager.model.formbean.LoginBean;
 import cn.ayahiro.manager.model.formbean.Message;
 import cn.ayahiro.manager.service.LoginService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 public class LoginController {

@@ -1,8 +1,11 @@
 package cn.ayahiro.manager.controller;
 
+import cn.ayahiro.manager.model.formbean.AjaxResponseBody;
 import cn.ayahiro.manager.model.formbean.Message;
 import cn.ayahiro.manager.model.formbean.RegisterBean;
 import cn.ayahiro.manager.service.RegisterService;
+import cn.ayahiro.manager.utils.RegexUtil;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +39,22 @@ public class RegisterController {
         model.addAttribute("message", message)
                 .addAttribute("registerBean", new RegisterBean());
         return "register";
+    }
+
+    @ResponseBody
+    @PostMapping("/checkUserName")
+    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody RegisterBean registerBean) {
+        AjaxResponseBody result = new AjaxResponseBody();
+        String userName = registerBean.getUserName();
+        if (userName == null || userName.trim().equals("")) {
+            result.setMsg("empty value!");
+        } else if (!RegexUtil.userNameValidation(userName)) {
+            result.setMsg("wrong input!");
+        } else if (registerService.isRegister(registerBean.getUserName())) {
+            result.setMsg("sorry, this name has been registered!");
+        } else {
+            result.setMsg("this name is available!");
+        }
+        return ResponseEntity.ok(result);
     }
 }

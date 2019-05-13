@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="../static/css/google.css" th:href="@{/css/google.css}">
     <link rel="stylesheet" href="../static/css/mdui.css" th:href="@{/css/mdui.css}">
-    <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <!--<script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>-->
+    <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
 </head>
 
 <body class="mdui-theme-accent-orange">
@@ -21,8 +22,9 @@
             $("#name").val(user);
             //alert("Be sure to enter your name: [" +user+ "] in the [ Username ] input box, otherwise the system will go wrong!");
         </script>
-        <button class="refresh mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent"
-                type="submit"><i class="mdui-icon material-icons">refresh</i></button>
+        <button onclick="fire_ajax_submit()" type="button"
+                class="refresh mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent">
+            <i class="mdui-icon material-icons">refresh</i></button>
         <div class="mdui-table-fluid business_info">
             <table class="mdui-table mdui-table-hoverable">
                 <tbody>
@@ -60,7 +62,7 @@
                         <p class="property">Balance</p>
                     </td>
                     <td class="data">
-                        <p th:text="${user.balance}">999</p>
+                        <p id="balance" th:text="${user.balance}">999</p>
                     </td>
                 </tr>
                 <tr th:if="${user.accountType=='CreditAccount' || user.accountType=='LoanCreditAccount'}">
@@ -68,7 +70,7 @@
                         <p class="property">Ceiling</p>
                     </td>
                     <td class="data">
-                        <p th:text="${user.ceiling}">null</p>
+                        <p id="ceiling" th:text="${user.ceiling}">null</p>
                     </td>
                 </tr>
                 <tr th:if="${user.accountType=='LoanSavingAccount' || user.accountType=='LoanCreditAccount'}">
@@ -76,7 +78,7 @@
                         <p class="property">Loan</p>
                     </td>
                     <td class="data">
-                        <p th:text="${user.loan}">null</p>
+                        <p id="loan" th:text="${user.loan}">null</p>
                     </td>
                 </tr>
                 <tr>
@@ -143,6 +145,32 @@
 <script src="https://unpkg.com/tippy.js@4" th:src="@{https://unpkg.com/tippy.js@4}"></script>
 <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
 <script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
+<script>
+    function fire_ajax_submit() {
+        var businessBean = {};
+        businessBean["fromName"] = $('#name').val();
+        alert(JSON.stringify(businessBean));
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json",
+            url: "/refresh",
+            data: JSON.stringify(businessBean),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                var balance = JSON.stringify(data.result.balance);
+                var ceiling = JSON.stringify(data.result.ceiling);
+                var loan = JSON.stringify(data.result.loan);
+                $('#balance').html(balance);
+                $('#ceiling').html(ceiling);
+                $('#loan').html(loan);
+                console.log("SUCCESS : ", data);
+                $(".refresh").prop("disabled", false);
+            }
+        })
+    }
+</script>
 </body>
 
 </html>

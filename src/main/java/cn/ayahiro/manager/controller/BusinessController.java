@@ -4,17 +4,18 @@ import cn.ayahiro.manager.exceptions.ATMException;
 import cn.ayahiro.manager.exceptions.BalanceNotEnoughException;
 import cn.ayahiro.manager.exceptions.LoanException;
 import cn.ayahiro.manager.model.Account;
+import cn.ayahiro.manager.model.formbean.AjaxResponseBody;
 import cn.ayahiro.manager.model.formbean.BusinessBean;
+import cn.ayahiro.manager.model.formbean.LoginBean;
 import cn.ayahiro.manager.model.formbean.Message;
 import cn.ayahiro.manager.service.BusinessService;
 import cn.ayahiro.manager.service.LoginService;
 import cn.ayahiro.manager.service.RegisterService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -39,7 +40,7 @@ public class BusinessController {
             model.addAttribute("message", new Message(false, "Incorrect input, re-enter, please."))
                     .addAttribute("businessBean", businessBean)
                     .addAttribute("user", user);
-            System.out.println(businessBean.getError().toString());
+            //System.out.println(businessBean.getError().toString());
             return "business";
         }
 
@@ -71,5 +72,20 @@ public class BusinessController {
                 .addAttribute("businessBean", businessBean)
                 .addAttribute("user", user);
         return "business";
+    }
+
+    @ResponseBody
+    @PostMapping("/refresh")
+    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody BusinessBean businessBean) {
+        AjaxResponseBody result = new AjaxResponseBody();
+        Account user = loginService.getUserByName(businessBean.getFromName());
+        if (user == null) {
+            result.setMsg("no user found!");
+        } else {
+            result.setMsg("success");
+        }
+        result.setResult(user);
+        System.out.println(user.toString());
+        return ResponseEntity.ok(result);
     }
 }
