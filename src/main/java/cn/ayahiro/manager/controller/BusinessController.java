@@ -83,8 +83,8 @@ public class BusinessController {
             result.setMsg("no user found!");
         } else {
             result.setMsg("success");
+            result.setResult(user);
         }
-        result.setResult(user);
         System.out.println(user.toString());
         return ResponseEntity.ok(result);
     }

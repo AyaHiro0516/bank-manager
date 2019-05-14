@@ -16,7 +16,7 @@
 <body class="mdui-theme-accent-orange">
 
 <div class="mdui-container">
-    <form method="POST" action="/business.html" th:action="@{/login/result}" th:object="${loginBean}" class="login">
+    <form method="POST" action="/business.html" th:action="@{/result}" th:object="${loginBean}" class="login">
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">person</i>
             <label class="mdui-textfield-label">Username</label>
@@ -42,6 +42,27 @@
 <script src="https://unpkg.com/tippy.js@4" th:src="@{https://unpkg.com/tippy.js@4}"></script>
 <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
 <script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
+<script>
+    //$('.submit').click(fire_ajax_submit);
+
+    function fire_ajax_submit() {
+        var loginBean = {};
+        loginBean["userName"] = $('#userName').val();
+        loginBean["passWord"] = $('#passWord').val();
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json",
+            url: "/checkUserIsAllow",
+            data: JSON.stringify(loginBean),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                alert(JSON.stringify(data.result));
+            }
+        })
+    }
+</script>
 </body>
 
 </html>

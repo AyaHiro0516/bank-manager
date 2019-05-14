@@ -1,11 +1,9 @@
 package cn.ayahiro.manager.controller;
 
 import cn.ayahiro.manager.model.Account;
-import cn.ayahiro.manager.model.formbean.AjaxResponseBody;
-import cn.ayahiro.manager.model.formbean.BusinessBean;
-import cn.ayahiro.manager.model.formbean.LoginBean;
-import cn.ayahiro.manager.model.formbean.Message;
+import cn.ayahiro.manager.model.formbean.*;
 import cn.ayahiro.manager.service.LoginService;
+import cn.ayahiro.manager.utils.RegexUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +29,7 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(path = {"/login/result"}, method = RequestMethod.POST)
+    @RequestMapping(path = {"/result"}, method = RequestMethod.POST)
     public String loginResult(@ModelAttribute LoginBean loginBean, Model model) {
         Account user = loginService.getUserByNameAndPassWord(loginBean.getUserName(), loginBean.getPassWord());
         Message message = new Message();
@@ -46,6 +44,22 @@ public class LoginController {
                 .addAttribute("user", user)
                 .addAttribute("message", message);
         return "business";
+    }
+
+    @ResponseBody
+    @PostMapping("/checkUserIsAllow")
+    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody LoginBean loginBean) {
+        AjaxResponseBody result = new AjaxResponseBody();
+        String userName = loginBean.getUserName();
+        String passWord = loginBean.getPassWord();
+        Account user=loginService.getUserByNameAndPassWord(userName, passWord);
+        if (user == null) {
+            result.setMsg("no user found!");
+        } else {
+            result.setMsg("success");
+            result.setResult(user);
+        }
+        return ResponseEntity.ok(result);
     }
 
 }
