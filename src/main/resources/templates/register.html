@@ -30,14 +30,17 @@
                 <option value="LoanCreditAccount">LoanCreditAccount</option>
             </select>
         </div>
-        <button onclick="fire_ajax_submit()" type="button"
-                class="checkName mdui-btn-dense mdui-btn mdui-btn-raised mdui-ripple  mdui-color-theme-accent">check
-        </button>
+        <!--<button onclick="fire_ajax_submit()" type="button"-->
+        <!--class="checkName mdui-btn-dense mdui-btn mdui-btn-raised mdui-ripple  mdui-color-theme-accent">check-->
+        <!--</button>-->
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">person</i>
             <label class="mdui-textfield-label">Username</label>
             <input id="userName" th:field="${registerBean.userName}" class="userName_in mdui-textfield-input"></input>
         </div>
+        <p class="checkResult"
+           style="color: #8c9eff; margin-top: 0; margin-bottom: 0; font-size: 14px; position: relative; left: 15%;">
+            waiting for input</p>
         <p th:if="${#maps.containsKey(registerBean.error, 'userName') || #maps.containsKey(registerBean.error, 'isRegister')}"
            th:text="${#maps.containsKey(registerBean.error, 'userName')} ?
                         ${registerBean.error['userName']} :
@@ -86,7 +89,7 @@
         <a href="index.html" th:href="@{/index}" class="back_register"><i
                 class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
         <div class="warning">
-            <p th:text="${message.info}"></p>
+            <p class="warning_text3" th:text="${message.info}"></p>
         </div>
     </form>
 </div>
@@ -96,10 +99,16 @@
 <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
 <script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
 <script>
+    $('#userName').bind({
+        blur: fire_ajax_submit
+    });
+
     function fire_ajax_submit() {
         var registerBean = {};
         registerBean["userName"] = $('#userName').val();
         $(".refresh").prop("disabled", true);
+        $(".warning_text").hide();
+        $('.warning_text3').html("");
         $.ajax({
             type: 'POST',
             contentType: "application/json",
@@ -109,9 +118,13 @@
             cache: false,
             timeout: 600000,
             success: function (data) {
-                var msg = JSON.stringify(data.msg);
-                alert(msg);
-                console.log("SUCCESS : ", data);
+                var msg = JSON.stringify(data.msg).replace("\"", "").replace("\"", "");
+                //alert(msg);
+                if (msg === 'this name is available (oﾟ▽ﾟ)o  ') {
+                    $(".checkResult").css("color", "#00c853").html(msg);
+                } else {
+                    $(".checkResult").css("color", "rgb(240, 66, 66)").html(msg);
+                }
                 $(".refresh").prop("disabled", false);
             }
         })

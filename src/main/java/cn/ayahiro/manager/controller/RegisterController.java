@@ -53,7 +53,7 @@ public class RegisterController {
         } else if (registerService.isRegister(registerBean.getUserName())) {
             result.setMsg("sorry, this name has been registered!");
         } else {
-            result.setMsg("this name is available!");
+            result.setMsg("this name is available (oﾟ▽ﾟ)o  ");
         }
         return ResponseEntity.ok(result);
     }
