@@ -60,20 +60,20 @@ public class RegisterService {
         String email = registerBean.getEmail();
         HashMap<String, String> error = registerBean.getError();
         boolean flag = true;
-        if (userName == null || userName.trim().equals("")) {
-            error.put("userName", "empty value!");
-            flag = false;
-        } else {
-            if (!RegexUtil.userNameValidation(userName)) {
-                error.put("userName", "wrong input!");
-                flag = false;
-            }
-        }
-
-        if (isRegister(registerBean.getUserName())) {
-            registerBean.getError().put("isRegister", "username has been registered!");
-            flag = false;
-        }
+//        if (userName == null || userName.trim().equals("")) {
+//            error.put("userName", "empty value!");
+//            flag = false;
+//        } else {
+//            if (!RegexUtil.userNameValidation(userName)) {
+//                error.put("userName", "wrong input!");
+//                flag = false;
+//            }
+//        }
+//
+//        if (isRegister(registerBean.getUserName())) {
+//            registerBean.getError().put("isRegister", "username has been registered!");
+//            flag = false;
+//        }
 
         if (passWord == null || passWord.trim().equals("")) {
             error.put("passWord", "empty value!");
@@ -85,19 +85,25 @@ public class RegisterService {
             }
         }
 
+        if (passWord2 != null && !passWord2.trim().equals("")) {
+            error.put("passWord2", "empty value!");
+            flag = false;
+        } else {
+            if (passWord == null || passWord.trim().equals("")) {
+                error.put("passWord2", "you haven't input passWord!");
+                flag = false;
+            } else if (!passWord2.equals(passWord)) {
+                error.put("passWord2", "inconsistent password!");
+                flag = false;
+            }
+        }
+
         if (personId == null || personId.trim().equals("")) {
             error.put("personId", "empty value!");
             flag = false;
         } else {
             if (!RegexUtil.personIdValidation(personId)) {
                 error.put("personId", "wrong input!");
-                flag = false;
-            }
-        }
-
-        if (passWord2 != null && !passWord2.trim().equals("")) {
-            if (!passWord2.equals(passWord)) {
-                error.put("passWord2", "inconsistent password!");
                 flag = false;
             }
         }

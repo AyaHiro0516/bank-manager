@@ -41,10 +41,10 @@
         <p class="checkResult"
            style="color: #8c9eff; margin-top: 0; margin-bottom: 0; font-size: 14px; position: relative; left: 15%;">
             waiting for input</p>
-        <p th:if="${#maps.containsKey(registerBean.error, 'userName') || #maps.containsKey(registerBean.error, 'isRegister')}"
-           th:text="${#maps.containsKey(registerBean.error, 'userName')} ?
-                        ${registerBean.error['userName']} :
-                        ${registerBean.error['isRegister']} " class="warning_text">this is warning</p>
+        <!--<p th:if="${#maps.containsKey(registerBean.error, 'userName') || #maps.containsKey(registerBean.error, 'isRegister')}"-->
+        <!--th:text="${#maps.containsKey(registerBean.error, 'userName')} ?-->
+        <!--${registerBean.error['userName']} :-->
+        <!--${registerBean.error['isRegister']} " class="warning_text">this is warning</p>-->
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">vpn_key</i>
             <label class="mdui-textfield-label">Password</label>

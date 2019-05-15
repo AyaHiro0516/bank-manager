@@ -16,7 +16,8 @@
 <body class="mdui-theme-accent-orange">
 
 <div class="mdui-container">
-    <form method="POST" action="/business.html" th:action="@{/result}" th:object="${loginBean}" class="login">
+    <form id="login_form" method="POST" action="/business.html" th:action="@{/result}" th:object="${loginBean}"
+          class="login">
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">person</i>
             <label class="mdui-textfield-label">Username</label>
@@ -28,12 +29,13 @@
             <input id="passWord" class="mdui-textfield-input" type="password" th:field="*{passWord}"></input>
         </div>
 
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit" type="submit">submit
+        <button onclick="fire_ajax_submit()" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit"
+                type="submit">submit
         </button>
         <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent reset" type="reset">reset</button>
         <a href="index.html" th:href="@{/index}" class="back_login"><i class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
-        <div th:if="${message.status==false}" class="warning">
-            <p th:text="${message.info}"></p>
+        <div class="warning">
+            <p class="warning_text3" th:text="${message.info}"></p>
         </div>
     </form>
 </div>
@@ -43,7 +45,17 @@
 <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
 <script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
 <script>
-    //$('.submit').click(fire_ajax_submit);
+    $('.submit').bind("click", function (e) {
+        e.preventDefault();
+    }).blur(function () {
+        $('.submit').html("SUBMIT")
+            .removeClass("mdui-color-light-green-400")
+            .addClass("mdui-color-theme-accent")
+            .bind("click", function (e) {
+                e.preventDefault();
+            });
+        $('.warning_text3').html("").css("color", "rgb(240, 66, 66)");
+    });
 
     function fire_ajax_submit() {
         var loginBean = {};
@@ -58,10 +70,47 @@
             cache: false,
             timeout: 600000,
             success: function (data) {
-                alert(JSON.stringify(data.result));
+                console.log(JSON.stringify(data));
+                var msg = JSON.stringify(data.msg).replace("\"", "").replace("\"", "");
+                if (msg === "success") {
+                    $('.submit').unbind("click").html("ENTER ➤")
+                        .removeClass("mdui-color-theme-accent")
+                        .addClass("mdui-color-light-green-400");
+                    $('.warning_text3').html("welcome, please enter. (oﾟ▽ﾟ)o").css("color", "#00c853");
+                } else {
+                    $('.warning_text3').html(msg);
+                }
             }
         })
     }
+
+    //用ajax发送form到controller
+    //    $.fn.serializeObject = function () {
+    //        var o = {};
+    //        var a = this.serializeArray();
+    //        $.each(a, function () {
+    //            if (o[this.name]) {
+    //                if (!o[this.name].push) {
+    //                    o[this.name] = [o[this.name]];
+    //                }
+    //                o[this.name].push(this.value || '');
+    //            } else {
+    //                o[this.name] = this.value || '';
+    //            }
+    //        });
+    //        return o;
+    //    };
+    //    function ajax_form_submit() {
+    //        var form=$('#login_form').serializeObject();
+    //        console.log(JSON.stringify(form));
+    //        $.ajax({
+    //            type: 'POST',
+    //            contentType: "application/json",
+    //            url: "/result",  //地址是controller的mapping
+    //            dataType: 'text',
+    //            data: JSON.stringify(form)
+    //        })
+    //    }
 </script>
 </body>
 
