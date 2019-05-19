@@ -12,14 +12,6 @@ public class LoginBean {
         this.passWord = passWord;
     }
 
-    @Override
-    public String toString() {
-        return "LoginBean{" +
-                "userName='" + userName + '\'' +
-                ", passWord='" + passWord + '\'' +
-                '}';
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -34,5 +26,13 @@ public class LoginBean {
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginBean{" +
+                "userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                '}';
     }
 }

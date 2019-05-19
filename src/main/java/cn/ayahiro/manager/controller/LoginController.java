@@ -30,18 +30,9 @@ public class LoginController {
     @RequestMapping(path = {"/result"}, method = RequestMethod.POST)
     public String loginResult(@ModelAttribute LoginBean loginBean, Model model) {
         Account user = loginService.getUserByNameAndPassWord(loginBean.getUserName(), loginBean.getPassWord());
-        //System.out.println(user.toString());
-        Message message = new Message();
-//        if (user == null) {
-//            message.setStatus(false).setInfo("Wrong username or password!");
-//            model.addAttribute("message", message);
-//            return "login";
-//        }
-        //message.setStatus(false).setInfo("from /result");
-        BusinessBean businessBean = new BusinessBean();
-        model.addAttribute("businessBean", businessBean)
+        model.addAttribute("businessBean", new BusinessBean())
                 .addAttribute("user", user)
-                .addAttribute("message", message);
+                .addAttribute("message", new Message());
         return "business";
     }
 
@@ -77,7 +68,6 @@ public class LoginController {
             }
         } else {
             //此处判断miss_time和isAllow
-            // if isAllow (...判断miss_time  少于5次放行) else  (通知用户无法登录)
             if (checkBean.isAllow() && checkBean.getMissNum() < 5) {
                 result.setMsg("success");
             } else if (!checkBean.isAllow()) {

@@ -28,12 +28,21 @@
             <label class="mdui-textfield-label">Password</label>
             <input id="passWord" class="mdui-textfield-input" type="password" th:field="*{passWord}"></input>
         </div>
-
-        <button onclick="fire_ajax_submit()" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit"
-                type="submit">submit
+        <div class="mdui-textfield mdui-textfield-floating-label">
+            <i class="mdui-icon material-icons">image</i>
+            <label class="mdui-textfield-label">Captcha</label>
+            <input name="captchaCode" id="captchaCode" class="mdui-textfield-input" type="text"></input>
+        </div>
+        <img id="captcha_img" alt="点击更换验证码" title="验证码" onclick="refresh()" src="/kaptcha.jpg"
+             style="position: absolute; left: 68%; top: 55%; width: 100px; height: 30px;"/>
+        <button onclick="fire_ajax_submit()"
+                class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit" type="submit">submit
         </button>
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent reset" type="reset">reset</button>
-        <a href="index.html" th:href="@{/index}" class="back_login"><i class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
+        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent reset"
+                type="reset">reset
+        </button>
+        <a href="index.html" th:href="@{/index}" class="back_login"><i
+                class="mdui-ripple mdui-icon material-icons ">arrow_back</i></a>
         <div class="warning">
             <p class="warning_text3" th:text="${message.info}"></p>
         </div>
@@ -45,6 +54,44 @@
 <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
 <script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
 <script>
+    //初始状态SUBMIT禁用
+    $('.submit').attr('disabled', "true");
+
+    //刷新验证码
+    function refresh() {
+        document.getElementById('captcha_img').src = "/kaptcha.jpg?" + Math.random();
+        $('.submit').attr('disabled', "true");
+    }
+
+    //输完验证码检查   正确才启用SUBMIT
+    $('#captchaCode').bind({
+        focus: function () {
+            //            if (this.value == this.defaultValue){
+            //                this.value="";
+            //            }
+        },
+        blur: function () {
+            //var paramsTime = $("#kaptcha").val();
+            var paramsTime = {
+                captchaCode: this.value
+            };
+            $.ajax({
+                url: "/checkCaptcha",
+                data: paramsTime,
+                type: "POST",
+                success: function (data) {
+                    if (data == "kaptcha_error") {
+                        //禁用按钮
+                        $('.submit').attr('disabled', "true");
+                    } else {
+                        $('.submit').removeAttr("disabled");
+                    }
+
+                }
+            });
+        }
+    });
+
     $('.submit').bind("click", function (e) {
         e.preventDefault();
     }).blur(function () {

@@ -1,4 +1,3 @@
-
 body {
     background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
     background-attachment: fixed;
@@ -31,7 +30,7 @@ body {
     display: inline;
 }
 
-button.checkName.mdui-btn-dense.mdui-btn.mdui-btn-raised.mdui-ripple{
+button.checkName.mdui-btn-dense.mdui-btn.mdui-btn-raised.mdui-ripple {
     height: 30px;
     position: absolute;
     left: 71.5%;
