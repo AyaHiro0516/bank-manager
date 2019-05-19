@@ -1,7 +1,8 @@
-# 简介
-这是本鸟的第一个SpringBoot demo，以该demo为基本框架学习一些SpringBoot一些基础的技术栈，为了使用而使用，会尽可能多的杂糅一些技术。
+## 简介
+---
+这是本鸟的第一个SpringBoot demo，以该demo为基本框架学习一些SpringBootd基础的技术栈，为了使用而使用，会尽可能多的杂糅各种功能模块。
 
-### 进度日志
+## 进度日志
 ---
 1. 手动刷新页面   --> 另一个submit 按钮   有bug: 必须submit一次之后才生效  
 原因：登录完成后请求/login/result  JQ获取失败(application/json)  提交之后请求/do_business JQ才获取成功
@@ -11,4 +12,16 @@
 4. ajax 输入userName马上知道是否已经注册   -->  已用按钮实现  --> 已实现
 5. 注册页面有小bug  可用ajax解决 
 6. 登录时输入验证码 kaptcha  --> 已实现
-7. 登录5次失败封号一天（先做一个demo）数据库+ miss_time   isAllow  定时任务重置isAllow  -->已实现
+7. 登录5次失败封号一天（先做一个demo）数据库添加miss_time和isAllow  定时任务重置isAllow  -->已实现
+
+## 页面效果
+---
+#### css使用MDUI框架
+- index
+![index](页面截图/index.png 'index')
+- register
+![register](页面截图/register.jpg 'register')
+- login
+![login](页面截图/login.png 'login')
+- business
+![business](页面截图/business.jpg 'business')
