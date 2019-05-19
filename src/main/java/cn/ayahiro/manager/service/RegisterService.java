@@ -14,6 +14,8 @@ import java.util.HashMap;
 public class RegisterService {
     @Resource(name = "accountMapper")
     private AccountMapper accountMapper;
+    @Resource(name = "allowCheckBeanMapper")
+    private AllowCheckBeanMapper allowCheckBeanMapper;
 
     private String[] acType = {"CreditAccount", "LoanCreditAccount", "SavingAccount", "LoanSavingAccount"};
 
@@ -85,7 +87,7 @@ public class RegisterService {
             }
         }
 
-        if (passWord2 != null && !passWord2.trim().equals("")) {
+        if (passWord2 == null || passWord2.trim().equals("")) {
             error.put("passWord2", "empty value!");
             flag = false;
         } else {
@@ -139,5 +141,9 @@ public class RegisterService {
             }
         }
         return flag;
+    }
+
+    public void registerBean(String userName, int missNum, boolean isAllow) {
+        allowCheckBeanMapper.registerBean(userName, missNum, isAllow);
     }
 }

@@ -2,6 +2,7 @@ package cn.ayahiro.manager.service;
 
 import cn.ayahiro.manager.mapper.*;
 import cn.ayahiro.manager.model.*;
+import cn.ayahiro.manager.model.formbean.AllowCheckBean;
 import cn.ayahiro.manager.utils.UserUtil;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ public class LoginService {
     private SavingAccountMapper savingAccountMapper;
     @Resource(name = "loanSavingAccountMapper")
     private LoanSavingAccountMapper loanSavingAccountMapper;
+    @Resource(name = "allowCheckBeanMapper")
+    private AllowCheckBeanMapper allowCheckBeanMapper;
 
     private String[] acType = {"CreditAccount", "LoanCreditAccount", "SavingAccount", "LoanSavingAccount"};
 
@@ -25,7 +28,7 @@ public class LoginService {
         LoanCreditAccount loanCreditAccount = null;
         SavingAccount savingAccount = null;
         LoanSavingAccount loanSavingAccount = null;
-        String md5_str= UserUtil.getMD5(password);
+        String md5_str = UserUtil.getMD5(password);
         for (String type : acType) {
             switch (type) {
                 case "CreditAccount":
@@ -99,5 +102,17 @@ public class LoginService {
             }
         }
         return null;
+    }
+
+    public AllowCheckBean getBeanByName(String userName) {
+        return allowCheckBeanMapper.getBeanByUserName(userName);
+    }
+
+    public void upDateMissNum(int missNum, String userName) {
+        allowCheckBeanMapper.upDateMissNum(missNum, userName);
+    }
+
+    public void upDateIsAllow(boolean isAllow, String userName) {
+        allowCheckBeanMapper.upDateIsAllow(isAllow, userName);
     }
 }
