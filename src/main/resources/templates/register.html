@@ -39,13 +39,11 @@
             <input id="userName" th:field="${registerBean.userName}"
                    class="userName_in mdui-textfield-input"></input>
         </div>
-        <p class="checkResult"
-           style="color: #8c9eff; margin-top: 0; margin-bottom: 0; font-size: 14px; position: relative; left: 15%;">
-            waiting for check</p>
-        <!--<p th:if="${#maps.containsKey(registerBean.error, 'userName') || #maps.containsKey(registerBean.error, 'isRegister')}"-->
-        <!--th:text="${#maps.containsKey(registerBean.error, 'userName')} ?-->
-        <!--${registerBean.error['userName']} :-->
-        <!--${registerBean.error['isRegister']} " class="warning_text">this is warning</p>-->
+        <p class="checkUserNameResult warning_text"></p>
+        <p th:if="${#maps.containsKey(registerBean.error, 'userName') || #maps.containsKey(registerBean.error, 'isRegister')}"
+           th:text="${#maps.containsKey(registerBean.error, 'userName')} ?
+        ${registerBean.error['userName']} :
+        ${registerBean.error['isRegister']} " class="warning_text">this is warning</p>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">vpn_key</i>
             <label class="mdui-textfield-label">Password</label>
@@ -71,22 +69,21 @@
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">email</i>
             <label class="mdui-textfield-label">E-mail</label>
-            <input th:field="${registerBean.email}" class="mdui-textfield-input"></input>
+            <input id="email" th:field="${registerBean.email}" class="mdui-textfield-input"></input>
         </div>
+        <p class="checkEmailResult warning_text"></p>
         <p th:if="${#maps.containsKey(registerBean.error, 'email')}"
            th:text="${registerBean.error['email']}" class="warning_text">this is warning</p>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">fingerprint</i>
             <label class="mdui-textfield-label">E-mail Captcha</label>
-            <input class="mdui-textfield-input"></input>
+            <input id="email_captcha" class="mdui-textfield-input"></input>
             <button class="send_captcha mdui-btn mdui-btn-raised mdui-ripple mdui-color-light-green-400 mdui-btn-dense"
-                    type="button"
-                    style="position: absolute; left: 76.5%; top: 18px;">send
-            </button>
+                    type="button" onclick="ajax_emailCaptcha_send()"
+                    style="position: absolute; left: 75.5%; top: 18px;">send</button>
+            <!--<div class="mdui-spinner mdui-spinner-colorful" style="position: relative; top: 2px;"></div>-->
         </div>
-        <p class="checkEmailResult"
-           style="color: #8c9eff; margin-top: 0; margin-bottom: 0; font-size: 14px; position: relative; left: 15%;">
-            waiting for check</p>
+        <p class="checkEmailCaptchaResult warning_text"></p>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">edit_location</i>
             <label class="mdui-textfield-label">Address</label>
@@ -111,15 +108,15 @@
 <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
 <script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
 <script>
+    //check userName
     $('#userName').bind({
-        blur: fire_ajax_submit
+        blur: ajax_userName_check
     });
 
-    function fire_ajax_submit() {
+    function ajax_userName_check() {
         var registerBean = {};
         registerBean["userName"] = $('#userName').val();
-        $(".refresh").prop("disabled", true);
-        $(".warning_text").hide();
+        $(".warning_text").html("");
         $('.warning_text3').html("");
         $.ajax({
             type: 'POST',
@@ -133,13 +130,109 @@
                 var msg = JSON.stringify(data.msg).replace("\"", "").replace("\"", "");
                 //alert(msg);
                 if (msg === 'this name is available (oﾟ▽ﾟ)o  ') {
-                    $(".checkResult").css("color", "#00c853").html(msg);
+                    $(".checkUserNameResult").css("color", "#00c853").html(msg);
                 } else {
-                    $(".checkResult").css("color", "rgb(240, 66, 66)").html(msg);
+                    $(".checkUserNameResult").css("color", "rgb(240, 66, 66)").html(msg);
                 }
-                $(".refresh").prop("disabled", false);
             }
         })
+    }
+
+    //初始化
+    var emailCaptcha = "";
+    $('.send_captcha').attr('disabled', "true");
+    //check email
+    $('#email').bind({
+        blur: ajax_email_check
+    });
+
+    function ajax_email_check() {
+        var registerBean = {};
+        registerBean["email"] = $('#email').val();
+        $(".warning_text").html("");
+        $('.warning_text3').html("");
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json",
+            url: "/checkEmail",
+            data: JSON.stringify(registerBean),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                var msg = JSON.stringify(data.msg).replace("\"", "").replace("\"", "");
+                //alert(msg);
+                if (msg === 'this email is available (oﾟ▽ﾟ)o  ') {
+                    $(".checkEmailResult").css("color", "#00c853").html(msg);
+                    //只有发送按钮内容是SEND时才会取消禁用
+                    if ($('.send_captcha').html() == "send") {
+                        $('.send_captcha').removeAttr("disabled");
+                    }
+                    $('.submit').attr('disabled', "true");
+                } else {
+                    emailCaptcha = "";
+                    $(".checkEmailResult").css("color", "rgb(240, 66, 66)").html(msg);
+                    $('.send_captcha').attr('disabled', "true").html("send");
+                    $('.submit').removeAttr("disabled");
+                }
+            }
+        })
+    }
+
+    //send email captcha
+    function ajax_emailCaptcha_send() {
+        var param = {
+            email: $('#email').val()
+        };
+        $('.send_captcha').attr('disabled', "true").html("sending");
+        $.ajax({
+            type: 'POST',
+            url: "/sendEmailCaptcha",
+            data: param,
+            success: function (data) {
+                if (data != null && data != "") {
+                    emailCaptcha = data;
+                    countDown();
+                } else {
+                    $('.send_captcha').removeAttr("disabled").html("failed!");
+                }
+            }
+        });
+    }
+
+    var maxTime = 60;
+
+    function countDown() {
+        if (maxTime == 0) {
+            //验证码有效期为60s(不安全)
+            emailCaptcha = "";
+            $('.send_captcha').removeAttr("disabled").html("send");
+            maxTime = 60;
+        } else {
+            $('.send_captcha').html(maxTime + "s");
+            maxTime--;
+            setTimeout(countDown, 1000);
+        }
+    }
+
+    //check email captcha
+    $('#email_captcha').bind({
+        blur: ajax_emailCaptcha_check
+    });
+
+    function ajax_emailCaptcha_check() {
+        var inputCaptcha = $('#email_captcha').val();
+        if (emailCaptcha != null && emailCaptcha != "") {
+            if (emailCaptcha == inputCaptcha) {
+                $('.submit').removeAttr("disabled");
+                $(".checkEmailCaptchaResult").css("color", "#00c853").html("Right! (oﾟ▽ﾟ)o  ");
+            } else {
+                $('.submit').attr('disabled', "true");
+                $(".checkEmailCaptchaResult").css("color", "rgb(240, 66, 66)").html("Wrong E-mail Captcha!");
+            }
+        } else {
+            $(".checkEmailCaptchaResult").css("color", "rgb(240, 66, 66)").html("You haven't send E-mail Captcha!");
+        }
     }
 </script>
 </body>

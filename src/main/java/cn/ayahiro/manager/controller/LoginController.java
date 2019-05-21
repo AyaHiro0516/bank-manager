@@ -38,7 +38,7 @@ public class LoginController {
 
     @ResponseBody
     @PostMapping("/checkUserIsAllow")
-    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody LoginBean loginBean) {
+    public ResponseEntity<AjaxResponseBody> getSearchResultViaAjax(@RequestBody LoginBean loginBean) {
         AjaxResponseBody result = new AjaxResponseBody();
         String userName = loginBean.getUserName();
         String passWord = loginBean.getPassWord();

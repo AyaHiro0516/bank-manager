@@ -44,13 +44,11 @@ public class CaptchaController {
     @PostMapping("/checkCaptcha")
     public String loginCheck(HttpServletRequest request,
                              @RequestParam(value = "captchaCode", required = true) String kaptchaReceived) {
-        String kaptchaExpected = (String) request.getSession().getAttribute(
-                com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+        String kaptchaExpected = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
 
         if (kaptchaReceived == null || !kaptchaReceived.equals(kaptchaExpected)) {
             return "kaptcha_error";
         }
         return "success";
     }
-
 }

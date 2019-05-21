@@ -62,20 +62,20 @@ public class RegisterService {
         String email = registerBean.getEmail();
         HashMap<String, String> error = registerBean.getError();
         boolean flag = true;
-//        if (userName == null || userName.trim().equals("")) {
-//            error.put("userName", "empty value!");
-//            flag = false;
-//        } else {
-//            if (!RegexUtil.userNameValidation(userName)) {
-//                error.put("userName", "wrong input!");
-//                flag = false;
-//            }
-//        }
-//
-//        if (isRegister(registerBean.getUserName())) {
-//            registerBean.getError().put("isRegister", "username has been registered!");
-//            flag = false;
-//        }
+        if (userName == null || userName.trim().equals("")) {
+            error.put("userName", "empty value!");
+            flag = false;
+        } else {
+            if (!RegexUtil.userNameValidation(userName)) {
+                error.put("userName", "wrong input!");
+                flag = false;
+            }
+        }
+
+        if (isRegister(registerBean.getUserName())) {
+            registerBean.getError().put("isRegister", "sorry, this name has been registered!");
+            flag = false;
+        }
 
         if (passWord == null || passWord.trim().equals("")) {
             error.put("passWord", "empty value!");
@@ -110,13 +110,15 @@ public class RegisterService {
             }
         }
 
-        if (email != null && !email.trim().equals("")) {
+        if (email == null || email.trim().equals("")) {
+            error.put("email", "empty value!");
+            flag = false;
+        } else {
             if (!RegexUtil.emailValidation(email)) {
                 error.put("email", "the mailbox format is illegal!");
                 flag = false;
             }
         }
-
         return flag;
     }
 

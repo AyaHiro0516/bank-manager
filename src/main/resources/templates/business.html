@@ -149,7 +149,7 @@
     function fire_ajax_submit() {
         var businessBean = {};
         businessBean["fromName"] = $('#name').val();
-        $('.warning_text2').hide();
+        $('.warning_text2').html("");
         $('.warning_text3').html("");
         $.ajax({
             type: 'POST',
@@ -167,7 +167,6 @@
                 $('#ceiling').html(ceiling);
                 $('#loan').html(loan);
                 console.log("SUCCESS : ", data);
-                $(".refresh").prop("disabled", false);
             }
         })
     }

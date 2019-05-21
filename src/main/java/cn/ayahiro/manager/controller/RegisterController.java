@@ -45,7 +45,7 @@ public class RegisterController {
 
     @ResponseBody
     @PostMapping("/checkUserName")
-    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody RegisterBean registerBean) {
+    public ResponseEntity<AjaxResponseBody> checkUserNameByAjax(@RequestBody RegisterBean registerBean) {
         AjaxResponseBody result = new AjaxResponseBody();
         String userName = registerBean.getUserName();
         if (userName == null || userName.trim().equals("")) {
@@ -56,6 +56,22 @@ public class RegisterController {
             result.setMsg("sorry, this name has been registered!");
         } else {
             result.setMsg("this name is available (oﾟ▽ﾟ)o  ");
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @ResponseBody
+    @PostMapping("/checkEmail")
+    public ResponseEntity<AjaxResponseBody> checkEmailByAjax(@RequestBody RegisterBean registerBean) {
+        AjaxResponseBody result = new AjaxResponseBody();
+        String email = registerBean.getEmail();
+        //未实现邮箱查重
+        if (email == null || email.trim().equals("")) {
+            result.setMsg("empty value!");
+        } else if (!RegexUtil.emailValidation(email)) {
+            result.setMsg("the mailbox format is illegal!");
+        } else {
+            result.setMsg("this email is available (oﾟ▽ﾟ)o  ");
         }
         return ResponseEntity.ok(result);
     }
