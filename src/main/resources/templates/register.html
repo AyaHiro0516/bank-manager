@@ -36,11 +36,12 @@
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">person</i>
             <label class="mdui-textfield-label">Username</label>
-            <input id="userName" th:field="${registerBean.userName}" class="userName_in mdui-textfield-input"></input>
+            <input id="userName" th:field="${registerBean.userName}"
+                   class="userName_in mdui-textfield-input"></input>
         </div>
         <p class="checkResult"
            style="color: #8c9eff; margin-top: 0; margin-bottom: 0; font-size: 14px; position: relative; left: 15%;">
-            waiting for input</p>
+            waiting for check</p>
         <!--<p th:if="${#maps.containsKey(registerBean.error, 'userName') || #maps.containsKey(registerBean.error, 'isRegister')}"-->
         <!--th:text="${#maps.containsKey(registerBean.error, 'userName')} ?-->
         <!--${registerBean.error['userName']} :-->
@@ -48,7 +49,8 @@
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">vpn_key</i>
             <label class="mdui-textfield-label">Password</label>
-            <input th:field="${registerBean.passWord}" class="password_in mdui-textfield-input" type="password"></input>
+            <input th:field="${registerBean.passWord}" class="password_in mdui-textfield-input"
+                   type="password"></input>
         </div>
         <p th:if="${#maps.containsKey(registerBean.error, 'passWord')}"
            th:text="${registerBean.error['passWord']}" class="warning_text">this is warning</p>
@@ -74,12 +76,22 @@
         <p th:if="${#maps.containsKey(registerBean.error, 'email')}"
            th:text="${registerBean.error['email']}" class="warning_text">this is warning</p>
         <div class="mdui-textfield mdui-textfield-floating-label">
+            <i class="mdui-icon material-icons">fingerprint</i>
+            <label class="mdui-textfield-label">E-mail Captcha</label>
+            <input class="mdui-textfield-input"></input>
+            <button class="send_captcha mdui-btn mdui-btn-raised mdui-ripple mdui-color-light-green-400 mdui-btn-dense"
+                    type="button"
+                    style="position: absolute; left: 76.5%; top: 18px;">send
+            </button>
+        </div>
+        <p class="checkEmailResult"
+           style="color: #8c9eff; margin-top: 0; margin-bottom: 0; font-size: 14px; position: relative; left: 15%;">
+            waiting for check</p>
+        <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">edit_location</i>
             <label class="mdui-textfield-label">Address</label>
             <input th:field="${registerBean.address}" class="mdui-textfield-input"></input>
         </div>
-        <p th:if="${#maps.containsKey(registerBean.error, 'address')}"
-           th:text="${registerBean.error['address']}" class="warning_text">this is warning</p>
         <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent submit"
                 type="submit">submit
         </button>

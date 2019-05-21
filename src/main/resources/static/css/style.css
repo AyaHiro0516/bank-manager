@@ -7,11 +7,11 @@ body {
 .register {
     margin: 0 auto;
     width: 30%;
-    padding: 30px 40px 40px 30px;
+    padding: 20px 40px 40px 30px;
     border-radius: 5px;
     box-shadow: 3px 3px 10px -2px #858282;
     position: relative;
-    top: 6vh;
+    top: 0.5vh;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
