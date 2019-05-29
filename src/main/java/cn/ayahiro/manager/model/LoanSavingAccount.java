@@ -5,6 +5,7 @@ import cn.ayahiro.manager.exceptions.BalanceNotEnoughException;
 import cn.ayahiro.manager.exceptions.LoanException;
 
 public class LoanSavingAccount extends SavingAccount implements Loanable {
+    private static final long serialVersionUID = 1788595504080621846L;
     private double loan;
 
     public void setLoan(double loan) throws ATMException {

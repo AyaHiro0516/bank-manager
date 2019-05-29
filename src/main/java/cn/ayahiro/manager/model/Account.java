@@ -6,6 +6,7 @@ import cn.ayahiro.manager.utils.UserUtil;
 import java.io.Serializable;
 
 abstract public class Account implements Serializable {
+    private static final long serialVersionUID = -8746991653107535734L;
     private long userId;
     private String passWord;
     private String userName;

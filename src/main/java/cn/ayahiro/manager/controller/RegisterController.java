@@ -37,7 +37,7 @@ public class RegisterController {
         message.setInfo("Success!");
         registerService.register(registerBean);
         //再注册一份用户登录信息 userName isAllow miss_time
-        registerService.registerBean(registerBean.getUserName(), 0, true);
+        registerService.registerBean(registerBean.getUserName(), 0, true, "user", "update");
         model.addAttribute("message", message)
                 .addAttribute("registerBean", new RegisterBean());
         return "register";

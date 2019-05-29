@@ -4,6 +4,7 @@ import cn.ayahiro.manager.mapper.*;
 import cn.ayahiro.manager.model.*;
 import cn.ayahiro.manager.model.formbean.AllowCheckBean;
 import cn.ayahiro.manager.utils.UserUtil;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -64,7 +65,7 @@ public class LoginService {
         return null;
     }
 
-    public Account getUserByName(String username) {
+    public Account getUserByUserName(String username) {
         CreditAccount creditAccount = null;
         LoanCreditAccount loanCreditAccount = null;
         SavingAccount savingAccount = null;
@@ -104,7 +105,7 @@ public class LoginService {
         return null;
     }
 
-    public AllowCheckBean getBeanByName(String userName) {
+    public AllowCheckBean getBeanByUserName(String userName) {
         return allowCheckBeanMapper.getBeanByUserName(userName);
     }
 

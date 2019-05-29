@@ -1,8 +1,10 @@
 package cn.ayahiro.manager.model.formbean;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class RegisterBean {
+public class RegisterBean implements Serializable{
+    private static final long serialVersionUID = 4647451596993431969L;
     private String accountType;
     private String userName;
     private String passWord;

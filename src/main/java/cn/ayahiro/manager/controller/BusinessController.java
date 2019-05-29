@@ -1,17 +1,13 @@
 package cn.ayahiro.manager.controller;
 
 import cn.ayahiro.manager.exceptions.ATMException;
-import cn.ayahiro.manager.exceptions.BalanceNotEnoughException;
-import cn.ayahiro.manager.exceptions.LoanException;
 import cn.ayahiro.manager.model.Account;
 import cn.ayahiro.manager.model.formbean.AjaxResponseBody;
 import cn.ayahiro.manager.model.formbean.BusinessBean;
-import cn.ayahiro.manager.model.formbean.LoginBean;
 import cn.ayahiro.manager.model.formbean.Message;
 import cn.ayahiro.manager.service.BusinessService;
 import cn.ayahiro.manager.service.LoginService;
 import cn.ayahiro.manager.service.RegisterService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,9 +29,7 @@ public class BusinessController {
 
     @RequestMapping(path = {"/do_business"}, method = RequestMethod.POST)
     public String doBusiness(@ModelAttribute BusinessBean businessBean, Model model) {
-        Account user = loginService.getUserByName(businessBean.getFromName());
-        Account toUser = loginService.getUserByName(businessBean.getToName());
-
+        Account user = loginService.getUserByUserName(businessBean.getFromName());
         if (!registerService.checkBusinessBean(businessBean)) {
             model.addAttribute("message", new Message(false, "Incorrect input, re-enter, please."))
                     .addAttribute("businessBean", businessBean)
@@ -62,6 +56,7 @@ public class BusinessController {
                     businessService.payLoan(user, amount);
                     break;
                 case "Transfer":
+                    Account toUser = loginService.getUserByUserName(businessBean.getToName());
                     businessService.transfer(user, toUser, amount);
                     break;
             }
@@ -76,9 +71,9 @@ public class BusinessController {
 
     @ResponseBody
     @PostMapping("/refresh")
-    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody BusinessBean businessBean) {
+    public ResponseEntity<AjaxResponseBody> getSearchResultViaAjax(@RequestBody BusinessBean businessBean) {
         AjaxResponseBody result = new AjaxResponseBody();
-        Account user = loginService.getUserByName(businessBean.getFromName());
+        Account user = loginService.getUserByUserName(businessBean.getFromName());
         if (user == null) {
             result.setMsg("no user found!");
         } else {

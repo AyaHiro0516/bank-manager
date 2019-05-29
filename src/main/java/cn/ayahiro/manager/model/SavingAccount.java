@@ -4,6 +4,8 @@ import cn.ayahiro.manager.exceptions.ATMException;
 import cn.ayahiro.manager.exceptions.BalanceNotEnoughException;
 
 public class SavingAccount extends Account {
+    private static final long serialVersionUID = -6551740655351694382L;
+
     public SavingAccount() {
         super();
     }

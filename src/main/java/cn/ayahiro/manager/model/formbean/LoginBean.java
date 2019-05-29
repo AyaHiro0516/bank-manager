@@ -1,6 +1,9 @@
 package cn.ayahiro.manager.model.formbean;
 
-public class LoginBean {
+import java.io.Serializable;
+
+public class LoginBean implements Serializable{
+    private static final long serialVersionUID = 4512276685672422131L;
     private String userName;
     private String passWord;
 

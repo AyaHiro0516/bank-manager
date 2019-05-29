@@ -4,6 +4,8 @@ import cn.ayahiro.manager.exceptions.ATMException;
 import cn.ayahiro.manager.exceptions.BalanceNotEnoughException;
 
 public class CreditAccount extends Account {
+    private static final long serialVersionUID = -2549955182044225707L;
+
     public CreditAccount() {
         super();
         this.setCeiling(0);

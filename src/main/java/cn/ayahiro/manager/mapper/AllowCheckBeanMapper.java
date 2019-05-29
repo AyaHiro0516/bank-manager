@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository("allowCheckBeanMapper")
 public interface AllowCheckBeanMapper {
-    @Select({"SELECT * FROM AllowCheckBean WHERE userName= #{userName}"})
+    @Select("SELECT * FROM AllowCheckBean WHERE userName= #{userName}")
     AllowCheckBean getBeanByUserName(@Param("userName") String username);
 
     @Update("UPDATE AllowCheckBean SET missNum= #{missNum} WHERE userName= #{userName}")
@@ -22,6 +22,7 @@ public interface AllowCheckBeanMapper {
     @Update("UPDATE AllowCheckBean SET isAllow= #{isAllow}")
     void upDateAllIsAllow(@Param("isAllow") boolean isAllow);
 
-    @Insert("INSERT INTO AllowCheckBean (userName, missNum, isAllow) VALUES (#{userName},#{missNum},#{isAllow})")
-    void registerBean(@Param("userName") String userName, @Param("missNum") int missNum, @Param("isAllow") boolean isAllow);
+    @Insert("INSERT INTO AllowCheckBean (userName, missNum, isAllow, role, permission) VALUES (#{userName},#{missNum},#{isAllow},#{role},#{permission})")
+    void registerBean(@Param("userName") String userName, @Param("missNum") int missNum, @Param("isAllow") boolean isAllow,
+                      @Param("role") String role, @Param("permission") String permission);
 }

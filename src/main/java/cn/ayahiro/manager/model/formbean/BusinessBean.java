@@ -1,8 +1,10 @@
 package cn.ayahiro.manager.model.formbean;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class BusinessBean {
+public class BusinessBean implements Serializable{
+    private static final long serialVersionUID = -865297646883643000L;
     private String amount;
     private String fromName;
     private String toName;

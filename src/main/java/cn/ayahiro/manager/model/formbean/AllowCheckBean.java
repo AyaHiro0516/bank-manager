@@ -1,10 +1,14 @@
 package cn.ayahiro.manager.model.formbean;
 
-public class AllowCheckBean {
+import java.io.Serializable;
+
+public class AllowCheckBean implements Serializable{
+    private static final long serialVersionUID = 4790515758692939243L;
     private String userName;
     private int missNum;
     private boolean isAllow;
-
+    private String role;
+    private String permission;
     public AllowCheckBean() {
     }
 
@@ -38,12 +42,30 @@ public class AllowCheckBean {
         isAllow = allow;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
     @Override
     public String toString() {
         return "AllowCheckBean{" +
                 "userName='" + userName + '\'' +
                 ", missNum=" + missNum +
                 ", isAllow=" + isAllow +
+                ", role='" + role + '\'' +
+                ", permission='" + permission + '\'' +
                 '}';
     }
 }

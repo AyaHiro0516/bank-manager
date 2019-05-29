@@ -2,8 +2,11 @@ package cn.ayahiro.manager.model.formbean;
 
 import cn.ayahiro.manager.model.Account;
 
+import java.io.Serializable;
 
-public class AjaxResponseBody {
+
+public class AjaxResponseBody implements Serializable{
+    private static final long serialVersionUID = 8961097734543551230L;
     private String msg;
     private Account result;
 

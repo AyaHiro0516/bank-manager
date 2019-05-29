@@ -145,7 +145,7 @@ public class RegisterService {
         return flag;
     }
 
-    public void registerBean(String userName, int missNum, boolean isAllow) {
-        allowCheckBeanMapper.registerBean(userName, missNum, isAllow);
+    public void registerBean(String userName, int missNum, boolean isAllow, String role, String permission) {
+        allowCheckBeanMapper.registerBean(userName, missNum, isAllow, role, permission);
     }
 }
