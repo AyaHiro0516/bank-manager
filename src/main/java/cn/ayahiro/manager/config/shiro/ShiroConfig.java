@@ -23,8 +23,10 @@ public class ShiroConfig {
         //RegisterController
         filterChainDefinitionMap.put("/do_register", "anon");
         //BusinessController
-        filterChainDefinitionMap.put("/do_business", "roles[admin]");
+        filterChainDefinitionMap.put("/do_business", "roles[user]");
         filterChainDefinitionMap.put("/refresh", "perms[update]");
+        //ManageController
+        filterChainDefinitionMap.put("/management", "roles[admin]");
         //CaptchaController
         filterChainDefinitionMap.put("/kaptcha.jpg", "anon");
 

@@ -14,13 +14,15 @@
 6. 登录时输入验证码 kaptcha  --> 已实现
 7. 登录5次失败封号一天（先做一个demo）数据库添加miss_time和isAllow  定时任务重置isAllow  -->已实现
 8. 注册时需要邮箱验证码 --> 已实现
-9. 简单集成shiro作api权限限制
+9. 初步集成shiro作api权限控制
 
 ## 页面效果
 ---
 #### 使用框架
-- 总体页面: [MDUI](https://www.mdui.org/docs/ "MDUI")
+- 前端渲染: [Thymeleaf](https://www.jianshu.com/p/f79a98173677 "Thymeleaf")
+- 页面美化: [MDUI](https://www.mdui.org/docs/ "MDUI")
 - 弹出提示框: [Tippy.js](https://atomiks.github.io/tippyjs/ "Tippy.js")
+- js: Jquery基本操作, ajax.
 
 ##### index
 ![index](页面截图/index.png 'index')
