@@ -37,6 +37,8 @@ public class LoginController {
 
     @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
     public String login(Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         model.addAttribute("loginBean", new LoginBean())
                 .addAttribute("message", new Message());
         return "login";

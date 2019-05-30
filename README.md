@@ -15,6 +15,7 @@
 7. 登录5次失败封号一天（先做一个demo）数据库添加miss_time和isAllow  定时任务重置isAllow  -->已实现
 8. 注册时需要邮箱验证码 --> 已实现
 9. 初步集成shiro作api权限控制
+10. 添加Excel下载功能, 导出账户信息
 
 ## 页面效果
 ---
@@ -31,4 +32,4 @@
 ##### login
 ![login](页面截图/login.png 'login')
 ##### business
-![business](页面截图/business.jpg 'business')
+![business](页面截图/business.png 'business')

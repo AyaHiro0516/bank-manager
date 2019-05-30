@@ -22,7 +22,11 @@
             $("#name").val(user);
             //alert("Be sure to enter your name: [" +user+ "] in the [ Username ] input box, otherwise the system will go wrong!");
         </script>
-        <button onclick="fire_ajax_submit()" type="button"
+        <a href="/doExcelDownload">
+            <button type="button" class="download mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-brown-400" >
+                <i class="mdui-icon material-icons">file_download</i></button>
+        </a>
+        <button onclick="ajax_refresh_submit()" type="button"
                 class="refresh mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent">
             <i class="mdui-icon material-icons">refresh</i></button>
         <div class="mdui-table-fluid business_info">
@@ -146,7 +150,7 @@
 <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
 <script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
 <script>
-    function fire_ajax_submit() {
+    function ajax_refresh_submit() {
         var businessBean = {};
         businessBean["fromName"] = $('#name').val();
         $('.warning_text2').html("");

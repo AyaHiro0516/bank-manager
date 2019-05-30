@@ -156,6 +156,13 @@ button.refresh.mdui-btn.mdui-btn-raised.mdui-ripple.mdui-btn-icon {
     z-index: 99;
 }
 
+button.download.mdui-btn.mdui-btn-raised.mdui-ripple.mdui-btn-icon {
+    position: absolute;
+    left: 1%;
+    top: 0.5%;
+    z-index: 99;
+}
+
 .mdui-table-fluid.business_info {
     position: relative;
     left: 5px;

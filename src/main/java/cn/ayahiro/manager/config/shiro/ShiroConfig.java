@@ -20,11 +20,14 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //LoginController
         filterChainDefinitionMap.put("/result", "authc");
+        filterChainDefinitionMap.put("/login", "anon");
         //RegisterController
         filterChainDefinitionMap.put("/do_register", "anon");
         //BusinessController
         filterChainDefinitionMap.put("/do_business", "roles[user]");
         filterChainDefinitionMap.put("/refresh", "perms[update]");
+        //ExcelDownloadController
+        filterChainDefinitionMap.put("/doExcelDownload", "roles[user]");
         //ManageController
         filterChainDefinitionMap.put("/management", "roles[admin]");
         //CaptchaController
