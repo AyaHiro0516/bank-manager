@@ -14,17 +14,169 @@
 </head>
 
 <body class="mdui-theme-accent-orange">
-<div class="mdui-container">
-    <div class="index">
-        <p style="color: orangered; font-size: 25px;">This management page</p>
+    <div class="mdui-container">
+        <div class="mdui-row management">
+            <div class="mdui-col-md-2">
+                <div class="mdui-chip display_type">
+                    <span class="mdui-chip-icon mdui-color-theme-accent"><i
+                            class="mdui-icon material-icons">filter_b_and_w</i></span>
+                    <span class="mdui-chip-title">Display AccountType</span>
+                </div>
+                <div class="choose_type">
+                    <div class="mdui-row type">
+                        <label class="mdui-switch">
+                            <input type="checkbox" checked />
+                            <i class="mdui-switch-icon"></i>
+                        </label>
+                        <div class="mdui-chip type_in">
+                            <span class="mdui-chip-title">SavingAccount</span>
+                        </div>
+                    </div>
+                    <div class="mdui-row type">
+                        <label class="mdui-switch">
+                            <input type="checkbox" checked />
+                            <i class="mdui-switch-icon"></i>
+                        </label>
+                        <div class="mdui-chip type_in">
+                            <span class="mdui-chip-title">CreditAccount</span>
+                        </div>
+                    </div>
+                    <div class="mdui-row type">
+                        <label class="mdui-switch">
+                            <input type="checkbox" checked />
+                            <i class="mdui-switch-icon"></i>
+                        </label>
+                        <div class="mdui-chip type_in">
+                            <span class="mdui-chip-title">LoanSavingAccount</span>
+                        </div>
+                    </div>
+                    <div class="mdui-row type">
+                        <label class="mdui-switch">
+                            <input type="checkbox" checked />
+                            <i class="mdui-switch-icon"></i>
+                        </label>
+                        <div class="mdui-chip type_in">
+                            <span class="mdui-chip-title">LoanCreditAccount</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="mdui-btn mdui-color-red-500 mdui-ripple delete">Delete selected</button>
+                <a href="/doExcelDownload">
+                    <button type="button"
+                        class="download_management mdui-btn mdui-btn-raised mdui-ripple mdui-color-brown-400">
+                        <i class="mdui-icon material-icons">file_download</i>download</button>
+                </a>
+            </div>
+            <div class="mdui-col-md-10">
+                <table class="mdui-table mdui-table-selectable mdui-table-hoverable">
+                    <thead>
+                        <tr class="table_thead">
+                            <th class="mdui-table-col-numeric">
+                                <p>UserId</p>
+                            </th>
+                            <th class="mdui-table-col-numeric">
+                                <p>UserName</p>
+                            </th>
+                            <th class="mdui-table-col-numeric">
+                                <p>PersonId</p>
+                            </th>
+                            <th class="mdui-table-col-numeric">
+                                <p>Email</p>
+                            </th>
+                            <th class="mdui-table-col-numeric">
+                                <p>Balance</p>
+                            </th>
+                            <th class="mdui-table-col-numeric">
+                                <p>AccountType</p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>99999</td>
+                            <td>BigBoss</td>
+                            <td>34080319980516235X</td>
+                            <td>601789175@qq.com</td>
+                            <td>10000</td>
+                            <td>LoanCreditAccount</td>
+                        </tr>
+                        <tr>
+                            <td>99999</td>
+                            <td>BigBoss</td>
+                            <td>34080319980516235X</td>
+                            <td>601789175@qq.com</td>
+                            <td>10000</td>
+                            <td>LoanCreditAccount</td>
+                        </tr>
+                        <tr>
+                            <td>99999</td>
+                            <td>BigBoss</td>
+                            <td>34080319980516235X</td>
+                            <td>601789175@qq.com</td>
+                            <td>10000</td>
+                            <td>LoanCreditAccount</td>
+                        </tr>
+                        <tr>
+                            <td>99999</td>
+                            <td>BigBoss</td>
+                            <td>34080319980516235X</td>
+                            <td>601789175@qq.com</td>
+                            <td>10000</td>
+                            <td>LoanCreditAccount</td>
+                        </tr>
+                        <tr>
+                            <td>99999</td>
+                            <td>BigBoss</td>
+                            <td>34080319980516235X</td>
+                            <td>601789175@qq.com</td>
+                            <td>10000</td>
+                            <td>LoanCreditAccount</td>
+                        </tr>
+                        <tr>
+                            <td>99999</td>
+                            <td>BigBoss</td>
+                            <td>34080319980516235X</td>
+                            <td>601789175@qq.com</td>
+                            <td>10000</td>
+                            <td>LoanCreditAccount</td>
+                        </tr>
+                        <tr>
+                            <td>99999</td>
+                            <td>BigBoss</td>
+                            <td>34080319980516235X</td>
+                            <td>601789175@qq.com</td>
+                            <td>10000</td>
+                            <td>LoanCreditAccount</td>
+                        </tr>
+                        <tr>
+                            <td>99999</td>
+                            <td>BigBoss</td>
+                            <td>34080319980516235X</td>
+                            <td>601789175@qq.com</td>
+                            <td>10000</td>
+                            <td>LoanCreditAccount</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <button class="mdui-btn mdui-color-theme-accent mdui-ripple prev">
+                    <i class="mdui-icon material-icons">navigate_before</i>prev
+                </button>
+                <button class="mdui-btn mdui-color-theme-accent mdui-ripple next">next
+                    <i class="mdui-icon material-icons">navigate_next</i>
+                </button>
+            </div>
+            <a href="index.html" th:href="@{/index}" class="back_management"><i
+                    class="mdui-ripple mdui-icon material-icons">arrow_back</i></a>
+        </div>
     </div>
-</div>
 
 
-<script src="https://unpkg.com/popper.js@1" th:src="@{https://unpkg.com/popper.js@1}"></script>
-<script src="https://unpkg.com/tippy.js@4" th:src="@{https://unpkg.com/tippy.js@4}"></script>
-<script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
-<script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
+    <script src="https://unpkg.com/popper.js@1" th:src="@{https://unpkg.com/popper.js@1}"></script>
+    <script src="https://unpkg.com/tippy.js@4" th:src="@{https://unpkg.com/tippy.js@4}"></script>
+    <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
+    <script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
 </body>
 
 </html>

@@ -12,7 +12,7 @@
 }
 
 .tippy-tooltip.google-theme[x-placement^=bottom] .tippy-arrow {
-    border-bottom: 8px solid rgba(117, 114, 114, 0.8);
+    border-bottom: 7px solid rgba(61, 58, 58, 0.8);
     border-right: 8px solid transparent;
     border-left: 8px solid transparent
 }

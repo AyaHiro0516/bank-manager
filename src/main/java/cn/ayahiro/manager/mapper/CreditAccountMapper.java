@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository("creditAccountMapper")
 public interface CreditAccountMapper extends AccountMapper {
@@ -14,4 +16,7 @@ public interface CreditAccountMapper extends AccountMapper {
 
     @Select({"SELECT * FROM CreditAccount WHERE userName= #{userName}"})
     CreditAccount getUser(@Param("userName") String username);
+
+    @Select({"SELECT * FROM CreditAccount"})
+    List<CreditAccount> getAllUsers();
 }

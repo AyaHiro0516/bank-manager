@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository("accountMapper")
 public interface AccountMapper {
-    @Insert("INSERT INTO ${accountType} (userId, passWord, personId, userName, email, address, balance) " +
-            "VALUES (#{userId},#{passWord},#{personId},#{userName},#{email},#{address},#{balance})")
+    @Insert("INSERT INTO ${accountType} (userId, passWord, personId, userName, email, address, balance, accountType) " +
+            "VALUES (#{userId},#{passWord},#{personId},#{userName},#{email},#{address},#{balance},#{accountType})")
     void register(@Param("accountType") String accountType,
                   @Param("userId") long userId, @Param("passWord") String passWord, @Param("personId") String personId,
                   @Param("userName") String userName, @Param("email") String email, @Param("address") String address,

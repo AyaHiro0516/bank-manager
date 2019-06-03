@@ -9,6 +9,14 @@ tippy.setDefaults({
     size: 'regular'
 });
 
+tippy('.display_type', {
+    content: 'choose the account type you want to show',
+    placement: 'bottom'
+});
+tippy('.download_management', {
+    content: 'download account information for all selected types',
+    placement: 'bottom'
+});
 
 tippy('.userName_in', {
     content: 'start with a letter, 5-16 in length. (only [a-z] & [0-9])'

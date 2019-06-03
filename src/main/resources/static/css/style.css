@@ -202,3 +202,73 @@ button.download.mdui-btn.mdui-btn-raised.mdui-ripple.mdui-btn-icon {
     left: -6.8vw;
     top: 2vh;
 }
+
+/* 管理页面 */
+.management {
+    margin: 0 auto;
+    width: 100%;
+    padding: 40px 30px 70px 30px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px -2px #858282;
+    position: relative;
+    top: 10vh;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.table_thead th p {
+    margin: 0 auto;
+    color: rgb(233, 125, 36);
+    font-size: 16px;
+    text-align: center;
+}
+
+.choose_type {
+    position: relative;
+    top: 3vh;
+}
+
+.type {
+    margin: 25px 0 25px 0;
+}
+
+.mdui-chip.type_in {
+    margin-left: 15px;
+}
+
+button.mdui-btn.mdui-ripple.delete {
+    position: relative;
+    left: 4%;
+    margin-top: 48px;
+    width: 160px; 
+}
+
+button.mdui-btn.mdui-ripple.download_management {
+    position: relative;
+    left: 4%;
+    margin-top: 40.4px; 
+    width: 160px; 
+}
+
+.pagination {
+    display: inline;
+    position: absolute;
+    left: 44%;
+    top: 90.8%;
+}
+
+.prev {
+    position: relative;
+    left: -10%;
+}
+
+.next {
+    position: relative;
+    left: 10%;
+}
+
+.back_management{
+    color: rgb(233, 125, 36);
+    position: absolute;
+    left: 95%;
+    top: 91.8%;
+}

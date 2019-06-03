@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository("savingAccountMapper")
 public interface SavingAccountMapper extends AccountMapper {
@@ -14,4 +16,7 @@ public interface SavingAccountMapper extends AccountMapper {
 
     @Select({"SELECT * FROM SavingAccount WHERE userName= #{userName}"})
     SavingAccount getUser(@Param("userName") String username);
+
+    @Select({"SELECT * FROM SavingAccount"})
+    List<SavingAccount> getAllUsers();
 }

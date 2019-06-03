@@ -4,10 +4,12 @@ import cn.ayahiro.manager.mapper.*;
 import cn.ayahiro.manager.model.*;
 import cn.ayahiro.manager.model.formbean.AllowCheckBean;
 import cn.ayahiro.manager.utils.UserUtil;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("loginService")
 public class LoginService {
@@ -35,28 +37,24 @@ public class LoginService {
                 case "CreditAccount":
                     creditAccount = creditAccountMapper.findUser(username, md5_str);
                     if (creditAccount != null) {
-                        creditAccount.setAccountType("CreditAccount");
                         return creditAccount;
                     }
                     break;
                 case "LoanCreditAccount":
                     loanCreditAccount = loanCreditAccountMapper.findUser(username, md5_str);
                     if (loanCreditAccount != null) {
-                        loanCreditAccount.setAccountType("LoanCreditAccount");
                         return loanCreditAccount;
                     }
                     break;
                 case "SavingAccount":
                     savingAccount = savingAccountMapper.findUser(username, md5_str);
                     if (savingAccount != null) {
-                        savingAccount.setAccountType("SavingAccount");
                         return savingAccount;
                     }
                     break;
                 case "LoanSavingAccount":
                     loanSavingAccount = loanSavingAccountMapper.findUser(username, md5_str);
                     if (loanSavingAccount != null) {
-                        loanSavingAccount.setAccountType("LoanSavingAccount");
                         return loanSavingAccount;
                     }
                     break;
@@ -75,28 +73,24 @@ public class LoginService {
                 case "CreditAccount":
                     creditAccount = creditAccountMapper.getUser(username);
                     if (creditAccount != null) {
-                        creditAccount.setAccountType("CreditAccount");
                         return creditAccount;
                     }
                     break;
                 case "LoanCreditAccount":
                     loanCreditAccount = loanCreditAccountMapper.getUser(username);
                     if (loanCreditAccount != null) {
-                        loanCreditAccount.setAccountType("LoanCreditAccount");
                         return loanCreditAccount;
                     }
                     break;
                 case "SavingAccount":
                     savingAccount = savingAccountMapper.getUser(username);
                     if (savingAccount != null) {
-                        savingAccount.setAccountType("SavingAccount");
                         return savingAccount;
                     }
                     break;
                 case "LoanSavingAccount":
                     loanSavingAccount = loanSavingAccountMapper.getUser(username);
                     if (loanSavingAccount != null) {
-                        loanSavingAccount.setAccountType("LoanSavingAccount");
                         return loanSavingAccount;
                     }
                     break;
@@ -104,6 +98,32 @@ public class LoginService {
         }
         return null;
     }
+
+    public List<Account> getAllUsers() {
+        List<Account> accountList = new ArrayList<>();
+        if (savingAccountMapper.getAllUsers().size() != 0) {
+            accountList.addAll(savingAccountMapper.getAllUsers());
+        }
+        if (creditAccountMapper.getAllUsers().size() != 0) {
+            accountList.addAll(creditAccountMapper.getAllUsers());
+        }
+        if (loanSavingAccountMapper.getAllUsers().size() != 0) {
+            accountList.addAll(loanSavingAccountMapper.getAllUsers());
+        }
+        if (loanCreditAccountMapper.getAllUsers().size() != 0) {
+            accountList.addAll(loanCreditAccountMapper.getAllUsers());
+        }
+        return accountList;
+    }
+
+    public List<Account> getUsersByPage(int pageNum, int pageSize) {
+        List<Account> accountList = getAllUsers();
+        return accountList.stream()
+                .skip(pageNum)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+    }
+
 
     public AllowCheckBean getBeanByUserName(String userName) {
         return allowCheckBeanMapper.getBeanByUserName(userName);
