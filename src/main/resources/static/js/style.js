@@ -14,8 +14,7 @@ tippy('.display_type', {
     placement: 'bottom'
 });
 tippy('.download_management', {
-    content: 'download account information for all selected types',
-    placement: 'bottom'
+    content: 'download account information for all selected types'
 });
 
 tippy('.userName_in', {

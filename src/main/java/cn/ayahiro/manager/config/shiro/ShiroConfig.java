@@ -29,7 +29,7 @@ public class ShiroConfig {
         //ExcelDownloadController
         filterChainDefinitionMap.put("/doExcelDownload", "roles[user]");
         //ManageController
-        filterChainDefinitionMap.put("/management", "roles[admin]");
+        //filterChainDefinitionMap.put("/management", "roles[admin]");
         //CaptchaController
         filterChainDefinitionMap.put("/kaptcha.jpg", "anon");
 
