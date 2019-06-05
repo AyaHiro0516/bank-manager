@@ -16,127 +16,141 @@
 <body class="mdui-theme-accent-orange">
 <div class="mdui-container">
     <div class="mdui-row management">
-        <div class="mdui-col-md-2">
-            <div class="mdui-chip display_type">
+        <form method="POST" action="/business.html" th:action="@{/refresh_management}">
+            <div class="mdui-col-md-2">
+                <div class="mdui-chip display_type">
                     <span class="mdui-chip-icon mdui-color-theme-accent"><i
                             class="mdui-icon material-icons">filter_b_and_w</i></span>
-                <span class="mdui-chip-title">Display AccountType</span>
+                    <span class="mdui-chip-title">Display AccountType</span>
+                </div>
+                <div class="choose_type">
+                    <div class="mdui-row type">
+                        <label class="mdui-switch">
+                            <input th:checked="${conditionBean.isChooseSA}" name="chooseType" value="SA"
+                                   type="checkbox"/>
+                            <i class="mdui-switch-icon"></i>
+                        </label>
+                        <div class="mdui-chip type_in">
+                            <span class="mdui-chip-title">SavingAccount</span>
+                        </div>
+                    </div>
+                    <div class="mdui-row type">
+                        <label class="mdui-switch">
+                            <input th:checked="${conditionBean.isChooseCA}" name="chooseType" value="CA"
+                                   type="checkbox"/>
+                            <i class="mdui-switch-icon"></i>
+                        </label>
+                        <div class="mdui-chip type_in">
+                            <span class="mdui-chip-title">CreditAccount</span>
+                        </div>
+                    </div>
+                    <div class="mdui-row type">
+                        <label class="mdui-switch">
+                            <input th:checked="${conditionBean.isChooseLSA}" name="chooseType" value="LSA"
+                                   type="checkbox"/>
+                            <i class="mdui-switch-icon"></i>
+                        </label>
+                        <div class="mdui-chip type_in">
+                            <span class="mdui-chip-title">LoanSavingAccount</span>
+                        </div>
+                    </div>
+                    <div class="mdui-row type">
+                        <label class="mdui-switch">
+                            <input th:checked="${conditionBean.isChooseLCA}" name="chooseType" value="LCA"
+                                   type="checkbox"/>
+                            <i class="mdui-switch-icon"></i>
+                        </label>
+                        <div class="mdui-chip type_in">
+                            <span class="mdui-chip-title">LoanCreditAccount</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="mdui-btn mdui-color-red-500 mdui-ripple delete">Delete selected</button>
+                <a href="/doExcelDownloadByType">
+                    <button type="button"
+                            class="download_management mdui-btn mdui-btn-raised mdui-ripple mdui-color-brown-400">
+                        💾 download
+                    </button>
+                </a>
             </div>
-            <div class="choose_type">
-                <div class="mdui-row type">
-                    <label class="mdui-switch">
-                        <input th:checked="${conditionBean.isChooseSA}" name="chooseType" value="SA" type="checkbox"/>
-                        <i class="mdui-switch-icon"></i>
-                    </label>
-                    <div class="mdui-chip type_in">
-                        <span class="mdui-chip-title">SavingAccount</span>
-                    </div>
-                </div>
-                <div class="mdui-row type">
-                    <label class="mdui-switch">
-                        <input th:checked="${conditionBean.isChooseCA}" name="chooseType" value="CA" type="checkbox"/>
-                        <i class="mdui-switch-icon"></i>
-                    </label>
-                    <div class="mdui-chip type_in">
-                        <span class="mdui-chip-title">CreditAccount</span>
-                    </div>
-                </div>
-                <div class="mdui-row type">
-                    <label class="mdui-switch">
-                        <input th:checked="${conditionBean.isChooseLSA}" name="chooseType" value="LSA" type="checkbox"/>
-                        <i class="mdui-switch-icon"></i>
-                    </label>
-                    <div class="mdui-chip type_in">
-                        <span class="mdui-chip-title">LoanSavingAccount</span>
-                    </div>
-                </div>
-                <div class="mdui-row type">
-                    <label class="mdui-switch">
-                        <input th:checked="${conditionBean.isChooseLCA}" name="chooseType" value="LCA" type="checkbox"/>
-                        <i class="mdui-switch-icon"></i>
-                    </label>
-                    <div class="mdui-chip type_in">
-                        <span class="mdui-chip-title">LoanCreditAccount</span>
-                    </div>
-                </div>
+            <div class="mdui-col-md-10">
+                <table class="mdui-table mdui-table-selectable mdui-table-hoverable">
+                    <thead>
+                    <tr class="table_thead">
+                        <th class="mdui-table-col-numeric">
+                            <p>📌 UserId</p>
+                        </th>
+                        <th class="mdui-table-col-numeric">
+                            <p>😃 UserName</p>
+                        </th>
+                        <th class="mdui-table-col-numeric">
+                            <p>🔰 PersonId</p>
+                        </th>
+                        <th class="mdui-table-col-numeric">
+                            <p>📧 Email</p>
+                        </th>
+                        <th class="mdui-table-col-numeric">
+                            <p>💰 Balance</p>
+                        </th>
+                        <th class="mdui-table-col-numeric">
+                            <p>🎨 AccountType</p>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${accountList}">
+                        <td th:text="${user.userId}">99999</td>
+                        <td th:text="${user.userName}">BigBoss</td>
+                        <td th:text="${user.personId}">34080319980516235X</td>
+                        <td th:text="${user.email}">601789175@qq.com</td>
+                        <td th:text="${user.balance}">10000</td>
+                        <td th:text="${user.accountType}">LoanCreditAccount</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <button class="mdui-btn mdui-color-red-500 mdui-ripple delete">Delete selected</button>
-            <a href="/doExcelDownload">
-                <button type="button"
-                        class="download_management mdui-btn mdui-btn-raised mdui-ripple mdui-color-brown-400">
-                    <i class="mdui-icon material-icons">file_download</i>download
-                </button>
-            </a>
-        </div>
-        <div class="mdui-col-md-10">
-            <table class="mdui-table mdui-table-selectable mdui-table-hoverable">
-                <thead>
-                <tr class="table_thead">
-                    <th class="mdui-table-col-numeric">
-                        <p>UserId</p>
-                    </th>
-                    <th class="mdui-table-col-numeric">
-                        <p>UserName</p>
-                    </th>
-                    <th class="mdui-table-col-numeric">
-                        <p>PersonId</p>
-                    </th>
-                    <th class="mdui-table-col-numeric">
-                        <p>Email</p>
-                    </th>
-                    <th class="mdui-table-col-numeric">
-                        <p>Balance</p>
-                    </th>
-                    <th class="mdui-table-col-numeric">
-                        <p>AccountType</p>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user : ${accountList}">
-                    <td th:text="${user.userId}">99999</td>
-                    <td th:text="${user.userName}">BigBoss</td>
-                    <td th:text="${user.personId}">34080319980516235X</td>
-                    <td th:text="${user.email}">601789175@qq.com</td>
-                    <td th:text="${user.balance}">10000</td>
-                    <td th:text="${user.accountType}">LoanCreditAccount</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="pagination">
-            <a th:href="@{'/management?pageNum='+${nowPageNum-1}}" class="prev">
-                <button class="mdui-btn mdui-color-theme-accent mdui-ripple">◀ prev</button>
-            </a>
+            <div class="pagination">
+                <a th:href="@{'/management?pageNum='+${nowPageNum-1}}" class="prev">
+                    <button type="button" class="mdui-btn mdui-color-theme-accent mdui-ripple">◀ prev</button>
+                </a>
 
-            <p th:text="${nowPageNum}+' '" style="display: inline">3</p>/
-            <p th:text="' '+${totalPageNum}" style="display: inline">8</p>
+                <p th:text="${nowPageNum}+' '" style="display: inline">3</p>/
+                <p th:text="' '+${totalPageNum}" style="display: inline">8</p>
 
-            <a th:href="@{'/management?pageNum='+${nowPageNum+1}}" class="next">
-                <button class="mdui-btn mdui-color-theme-accent mdui-ripple">next ▶</button>
-            </a>
-            <script th:inline="javascript">
-                var nowPageNum = [[${nowPageNum}]];
-                var totalPageNum = [[${totalPageNum}]];
-                if (nowPageNum <= 1) {
-                    $(".prev button").attr('disabled', "true");
-                } else {
-                    $(".prev button").removeAttr("disabled");
-                }
-                if (nowPageNum >= totalPageNum) {
-                    $(".next button").attr('disabled', "true");
-                } else {
-                    $(".next button").removeAttr("disabled");
-                }
-            </script>
-        </div>
-        <!--<button class="refresh_management mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent"-->
-        <!--style="position: absolute; left: 3%; top: 91.8%;">-->
-        <!--<i class="mdui-icon material-icons">refresh</i></button>-->
-        <a href="index.html" th:href="@{/management}" class="refresh_management"><i
-                class="mdui-ripple mdui-icon material-icons">refresh</i></a>
-        <a href="index.html" th:href="@{/index}" class="back_management"><i
-                class="mdui-ripple mdui-icon material-icons">arrow_back</i></a>
+                <a th:href="@{'/management?pageNum='+${nowPageNum+1}}" class="next">
+                    <button type="button" class="mdui-btn mdui-color-theme-accent mdui-ripple">next ▶</button>
+                </a>
+                <script th:inline="javascript">
+                    var nowPageNum = [[${nowPageNum}]];
+                    var totalPageNum = [[${totalPageNum}]];
+                    if (nowPageNum <= 1) {
+                        $(".prev button").attr('disabled', "true");
+                    } else {
+                        $(".prev button").removeAttr("disabled");
+                    }
+                    if (nowPageNum >= totalPageNum) {
+                        $(".next button").attr('disabled', "true");
+                    } else {
+                        $(".next button").removeAttr("disabled");
+                    }
+                    if (totalPageNum === 0) {
+                        $(".download_management").attr('disabled', "true");
+                        $(".delete").attr('disabled', "true");
+                    } else {
+                        $(".download_management").removeAttr("disabled");
+                        $(".delete").removeAttr("disabled");
+                    }
+                </script>
+            </div>
+            <button type="submit"
+                    class="refresh_management mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent"
+                    style="position: absolute; left: 3%; top: 91.8%;">
+                <i class="mdui-icon material-icons">refresh</i></button>
+            <!--<a href="index.html" th:href="@{/management}" class="refresh_management"><i-->
+            <!--class="mdui-ripple mdui-icon material-icons">refresh</i></a>-->
+            <a href="index.html" th:href="@{/index}" class="back_management"><i
+                    class="mdui-ripple mdui-icon material-icons">arrow_back</i></a>
+        </form>
     </div>
 </div>
 

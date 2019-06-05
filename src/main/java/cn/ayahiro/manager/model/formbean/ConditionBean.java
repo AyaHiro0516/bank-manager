@@ -16,34 +16,44 @@ public class ConditionBean {
         this.isChooseLCA = isChooseLCA;
     }
 
+    public boolean isEmpty() {
+        return !isChooseSA && !isChooseCA && !isChooseLSA && !isChooseLCA;
+    }
+
     public boolean getIsChooseSA() {
         return isChooseSA;
     }
 
-    public void setIsChooseSA(boolean isChooseSA) {
+    public ConditionBean setIsChooseSA(boolean isChooseSA) {
         this.isChooseSA = isChooseSA;
+        return this;
     }
 
     public boolean getIsChooseCA() {
         return isChooseCA;
     }
 
-    public void setIsChooseCA(boolean isChooseCA) {
+    public ConditionBean setIsChooseCA(boolean isChooseCA) {
         this.isChooseCA = isChooseCA;
+        return this;
     }
+
     public boolean getIsChooseLSA() {
         return isChooseLSA;
     }
 
-    public void setIsChooseLSA(boolean isChooseLSA) {
+    public ConditionBean setIsChooseLSA(boolean isChooseLSA) {
         this.isChooseLSA = isChooseLSA;
+        return this;
     }
+
     public boolean getIsChooseLCA() {
         return isChooseLCA;
     }
 
-    public void setIsChooseLCA(boolean isChooseLCA) {
+    public ConditionBean setIsChooseLCA(boolean isChooseLCA) {
         this.isChooseLCA = isChooseLCA;
+        return this;
     }
 
 }

@@ -3,6 +3,7 @@ package cn.ayahiro.manager.service;
 import cn.ayahiro.manager.mapper.*;
 import cn.ayahiro.manager.model.*;
 import cn.ayahiro.manager.model.formbean.AllowCheckBean;
+import cn.ayahiro.manager.model.formbean.ConditionBean;
 import cn.ayahiro.manager.utils.UserUtil;
 import org.springframework.stereotype.Service;
 
@@ -99,25 +100,61 @@ public class LoginService {
         return null;
     }
 
-    public List<Account> getAllUsers() {
+    public List<Account> getAllUsersByType(ConditionBean conditionBean) {
         List<Account> accountList = new ArrayList<>();
-        if (savingAccountMapper.getAllUsers().size() != 0) {
-            accountList.addAll(savingAccountMapper.getAllUsers());
+        List<SavingAccount> savingAccounts = savingAccountMapper.getAllUsers();
+        List<CreditAccount> creditAccounts = creditAccountMapper.getAllUsers();
+        List<LoanSavingAccount> loanSavingAccounts = loanSavingAccountMapper.getAllUsers();
+        List<LoanCreditAccount> loanCreditAccounts = loanCreditAccountMapper.getAllUsers();
+        if (conditionBean.getIsChooseSA()) {
+            if (savingAccounts.size() != 0) {
+                accountList.addAll(savingAccounts);
+            }
         }
-        if (creditAccountMapper.getAllUsers().size() != 0) {
-            accountList.addAll(creditAccountMapper.getAllUsers());
+        if (conditionBean.getIsChooseCA()) {
+            if (creditAccounts.size() != 0) {
+                accountList.addAll(creditAccounts);
+            }
         }
-        if (loanSavingAccountMapper.getAllUsers().size() != 0) {
-            accountList.addAll(loanSavingAccountMapper.getAllUsers());
+        if (conditionBean.getIsChooseLSA()) {
+            if (loanSavingAccounts.size() != 0) {
+                accountList.addAll(loanSavingAccounts);
+            }
         }
-        if (loanCreditAccountMapper.getAllUsers().size() != 0) {
-            accountList.addAll(loanCreditAccountMapper.getAllUsers());
+        if (conditionBean.getIsChooseLCA()) {
+            if (loanCreditAccounts.size() != 0) {
+                accountList.addAll(loanCreditAccounts);
+            }
         }
         return accountList;
     }
 
-    public List<Account> getUsersByPage(int pageNum, int pageSize) {
-        List<Account> accountList = getAllUsers();
+    public List<Account> getUsersByPage(int pageNum, int pageSize, ConditionBean conditionBean) {
+        List<Account> accountList = new ArrayList<>();
+        List<SavingAccount> savingAccounts = savingAccountMapper.getAllUsers();
+        List<CreditAccount> creditAccounts = creditAccountMapper.getAllUsers();
+        List<LoanSavingAccount> loanSavingAccounts = loanSavingAccountMapper.getAllUsers();
+        List<LoanCreditAccount> loanCreditAccounts = loanCreditAccountMapper.getAllUsers();
+        if (conditionBean.getIsChooseSA()) {
+            if (savingAccounts.size() != 0) {
+                accountList.addAll(savingAccounts);
+            }
+        }
+        if (conditionBean.getIsChooseCA()) {
+            if (creditAccounts.size() != 0) {
+                accountList.addAll(creditAccounts);
+            }
+        }
+        if (conditionBean.getIsChooseLSA()) {
+            if (loanSavingAccounts.size() != 0) {
+                accountList.addAll(loanSavingAccounts);
+            }
+        }
+        if (conditionBean.getIsChooseLCA()) {
+            if (loanCreditAccounts.size() != 0) {
+                accountList.addAll(loanCreditAccounts);
+            }
+        }
         return accountList.stream()
                 .skip(pageNum)
                 .limit(pageSize)

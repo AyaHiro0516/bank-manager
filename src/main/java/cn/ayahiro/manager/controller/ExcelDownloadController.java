@@ -1,5 +1,6 @@
 package cn.ayahiro.manager.controller;
 
+import cn.ayahiro.manager.model.formbean.ConditionBean;
 import cn.ayahiro.manager.service.LoginService;
 import cn.ayahiro.manager.utils.ExcelUtil;
 import org.apache.shiro.SecurityUtils;
@@ -19,16 +20,33 @@ public class ExcelDownloadController {
 
     @ResponseBody
     @RequestMapping("/doExcelDownload")
-    public void doExcelDownload(HttpServletResponse response){
+    public void doExcelDownload(HttpServletResponse response) {
         Subject subject = SecurityUtils.getSubject();
-        String fileName="Account Information";
+        String fileName = "Account Information";
         try {
-            response.setHeader("Content-type","application/vnd.ms-excel");
+            response.setHeader("Content-type", "application/vnd.ms-excel");
             // 解决导出文件名中文乱码
             response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Disposition","attachment;filename="+new String(fileName.getBytes("UTF-8"),"ISO-8859-1")+".xlsx");
+            response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + ".xlsx");
             // 模板导出Excel
-            ExcelUtil.templateExport(response.getOutputStream(), loginService.getUserByUserName(subject.getPrincipal().toString()));
+            ExcelUtil.templateExportByUser(response.getOutputStream(), loginService.getUserByUserName(subject.getPrincipal().toString()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/doExcelDownloadByType")
+    public void doExcelDownloadByType(HttpServletResponse response) {
+        String fileName = "Accounts Information";
+        ConditionBean conditionBean = ManageController.conditionBean;
+        try {
+            response.setHeader("Content-type", "application/vnd.ms-excel");
+            // 解决导出文件名中文乱码
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + ".xlsx");
+            // 模板导出Excel
+            ExcelUtil.templateExportByUserList(response.getOutputStream(), loginService.getAllUsersByType(conditionBean));
         } catch (IOException e) {
             e.printStackTrace();
         }

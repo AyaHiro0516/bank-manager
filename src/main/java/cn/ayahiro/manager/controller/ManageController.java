@@ -1,6 +1,5 @@
 package cn.ayahiro.manager.controller;
 
-import cn.ayahiro.manager.model.Account;
 import cn.ayahiro.manager.model.formbean.ConditionBean;
 import cn.ayahiro.manager.service.LoginService;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Controller
 public class ManageController {
@@ -18,19 +16,25 @@ public class ManageController {
 
     private static final int PAGE_SIZE = 8;
 
+    public static ConditionBean conditionBean = new ConditionBean(true, true, true, true);
+
     @RequestMapping(path = {"/management"}, method = RequestMethod.GET)
     public String management(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
-        double totalPageNum = Math.ceil((double) loginService.getAllUsers().size() / (double) PAGE_SIZE);
-        model.addAttribute("accountList", loginService.getUsersByPage((pageNum - 1) * PAGE_SIZE, PAGE_SIZE))
+        double totalPageNum = Math.ceil((double) loginService.getAllUsersByType(conditionBean).size() / (double) PAGE_SIZE);
+        model.addAttribute("accountList", loginService.getUsersByPage((pageNum - 1) * PAGE_SIZE, PAGE_SIZE, conditionBean))
                 .addAttribute("nowPageNum", pageNum)
                 .addAttribute("totalPageNum", (int) totalPageNum)
-                .addAttribute("conditionBean", new ConditionBean(true, true, true, true));
+                .addAttribute("conditionBean", conditionBean);
         return "management";
     }
 
     @RequestMapping(path = {"/refresh_management"}, method = RequestMethod.POST)
-    public String management(@RequestParam(value = "chooseType", defaultValue = "") String[] chooseTypes, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
-        ConditionBean conditionBean = new ConditionBean();
+    public String management(@RequestParam(value = "chooseType", defaultValue = "") String[] chooseTypes, Model model) {
+        conditionBean.setIsChooseSA(false)
+                .setIsChooseCA(false)
+                .setIsChooseLSA(false)
+                .setIsChooseLCA(false);
+
         for (String type : chooseTypes) {
             switch (type) {
                 case "SA":
@@ -46,19 +50,16 @@ public class ManageController {
                     conditionBean.setIsChooseLCA(true);
                     break;
             }
-            System.out.println(type);
         }
-        double totalPageNum = Math.ceil((double) loginService.getAllUsers().size() / (double) PAGE_SIZE);
-        model.addAttribute("accountList", loginService.getUsersByPage((pageNum - 1) * PAGE_SIZE, PAGE_SIZE))
-                .addAttribute("nowPageNum", pageNum)
+        double totalPageNum = Math.ceil((double) loginService.getAllUsersByType(conditionBean).size() / (double) PAGE_SIZE);
+        int nowPageNum = 1;
+        if (conditionBean.isEmpty())
+            nowPageNum = 0;
+        model.addAttribute("accountList", loginService.getUsersByPage(0, PAGE_SIZE, conditionBean))
+                .addAttribute("nowPageNum", nowPageNum)
                 .addAttribute("totalPageNum", (int) totalPageNum)
                 .addAttribute("conditionBean", conditionBean);
         return "management";
     }
 
-    @ResponseBody
-    @RequestMapping(path = {"/findByPage"}, method = RequestMethod.GET)
-    public List<Account> findByPage() {
-        return loginService.getUsersByPage(2, 2);
-    }
 }
