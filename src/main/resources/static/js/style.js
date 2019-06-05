@@ -10,7 +10,7 @@ tippy.setDefaults({
 });
 
 tippy('.display_type', {
-    content: 'choose the account type you want to show',
+    content: 'choose the account type you want to show, <br> then click the [ refresh ] button below',
     placement: 'bottom'
 });
 tippy('.download_management', {

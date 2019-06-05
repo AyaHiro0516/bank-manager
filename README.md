@@ -16,6 +16,7 @@
 8. 注册时需要邮箱验证码 --> 已实现
 9. 初步集成shiro作api权限控制
 10. 添加Excel下载功能, 导出账户信息
+11. pagehelper插件使用失败= =，无奈用stream的操作手动模拟了个伪分页效果，待实现批量删除
 
 ## 页面效果
 ---
@@ -33,3 +34,5 @@
 ![login](页面截图/login.png 'login')
 ##### business
 ![business](页面截图/business.png 'business')
+##### management
+![management](页面截图/management.png 'management')
