@@ -65,14 +65,20 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="mdui-btn mdui-color-red-500 mdui-ripple delete">Delete selected</button>
                 <a href="/doExcelDownloadByType">
                     <button type="button"
                             class="download_management mdui-btn mdui-btn-raised mdui-ripple mdui-color-brown-400">
                         💾 download
                     </button>
                 </a>
+                <button type="submit"
+                        class="refresh_management mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent"
+                        style="position: absolute; left: 3%; top: 104%;">
+                    <i class="mdui-icon material-icons">refresh</i></button>
             </div>
+        </form>
+        <form method="POST" action="/business.html" th:action="@{/delete_management}">
+            <button type="submit" class="mdui-btn mdui-color-red-500 mdui-ripple delete">Delete selected</button>
             <div class="mdui-col-md-10">
                 <table class="mdui-table mdui-table-hoverable">
                     <thead>
@@ -121,48 +127,44 @@
                     </tbody>
                 </table>
             </div>
-            <div class="pagination">
-                <a th:href="@{'/management?pageNum='+${nowPageNum-1}}" class="prev">
-                    <button type="button" class="mdui-btn mdui-color-theme-accent mdui-ripple">◀ prev</button>
-                </a>
-
-                <p th:text="${nowPageNum}+' '" style="display: inline">3</p>/
-                <p th:text="' '+${totalPageNum}" style="display: inline">8</p>
-
-                <a th:href="@{'/management?pageNum='+${nowPageNum+1}}" class="next">
-                    <button type="button" class="mdui-btn mdui-color-theme-accent mdui-ripple">next ▶</button>
-                </a>
-                <script th:inline="javascript">
-                    var nowPageNum = [[${nowPageNum}]];
-                    var totalPageNum = [[${totalPageNum}]];
-                    if (nowPageNum <= 1) {
-                        $(".prev button").attr('disabled', "true");
-                    } else {
-                        $(".prev button").removeAttr("disabled");
-                    }
-                    if (nowPageNum >= totalPageNum) {
-                        $(".next button").attr('disabled', "true");
-                    } else {
-                        $(".next button").removeAttr("disabled");
-                    }
-                    if (totalPageNum === 0) {
-                        $(".download_management").attr('disabled', "true");
-                        $(".delete").attr('disabled', "true");
-                    } else {
-                        $(".download_management").removeAttr("disabled");
-                        $(".delete").removeAttr("disabled");
-                    }
-                </script>
-            </div>
-            <button type="submit"
-                    class="refresh_management mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent"
-                    style="position: absolute; left: 3%; top: 91%;">
-                <i class="mdui-icon material-icons">refresh</i></button>
-            <!--<a href="index.html" th:href="@{/management}" class="refresh_management"><i-->
-            <!--class="mdui-ripple mdui-icon material-icons">refresh</i></a>-->
-            <a href="index.html" th:href="@{/index}" class="back_management"><i
-                    class="mdui-ripple mdui-icon material-icons">arrow_back</i></a>
         </form>
+        <div class="pagination">
+            <a th:href="@{'/management?pageNum='+${nowPageNum-1}}" class="prev">
+                <button type="button" class="mdui-btn mdui-color-theme-accent mdui-ripple">◀ prev</button>
+            </a>
+
+            <p th:text="${nowPageNum}+' '" style="display: inline">3</p>/
+            <p th:text="' '+${totalPageNum}" style="display: inline">8</p>
+
+            <a th:href="@{'/management?pageNum='+${nowPageNum+1}}" class="next">
+                <button type="button" class="mdui-btn mdui-color-theme-accent mdui-ripple">next ▶</button>
+            </a>
+            <script th:inline="javascript">
+                var nowPageNum = [[${nowPageNum}]];
+                var totalPageNum = [[${totalPageNum}]];
+                if (nowPageNum <= 1) {
+                    $(".prev button").attr('disabled', "true");
+                } else {
+                    $(".prev button").removeAttr("disabled");
+                }
+                if (nowPageNum >= totalPageNum) {
+                    $(".next button").attr('disabled', "true");
+                } else {
+                    $(".next button").removeAttr("disabled");
+                }
+                if (totalPageNum === 0) {
+                    $(".download_management").attr('disabled', "true");
+                    $(".delete").attr('disabled', "true");
+                } else {
+                    $(".download_management").removeAttr("disabled");
+                    $(".delete").removeAttr("disabled");
+                }
+            </script>
+        </div>
+        <!--<a href="index.html" th:href="@{/management}" class="refresh_management"><i-->
+        <!--class="mdui-ripple mdui-icon material-icons">refresh</i></a>-->
+        <a href="index.html" th:href="@{/index}" class="back_management"><i
+                class="mdui-ripple mdui-icon material-icons">arrow_back</i></a>
     </div>
 </div>
 

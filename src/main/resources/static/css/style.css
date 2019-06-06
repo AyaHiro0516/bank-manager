@@ -240,16 +240,15 @@ button.download.mdui-btn.mdui-btn-raised.mdui-ripple.mdui-btn-icon {
 }
 
 button.mdui-btn.mdui-ripple.delete {
-    position: relative;
-    left: 4%;
-    margin-top: 48px;
-    width: 160px;
+    position: absolute;
+    top: 70%;
+    left: 3.5%;
 }
 
 button.mdui-btn.mdui-ripple.download_management {
     position: relative;
     left: 4%;
-    margin-top: 37px;
+    margin-top: 121px;
     width: 160px;
 }
 
@@ -272,18 +271,18 @@ button.mdui-btn.mdui-ripple.download_management {
     text-decoration: none;
 }
 
-button.refresh_management{
+button.refresh_management {
     color: rgb(233, 125, 36);
 }
 
-.refresh_management{
+.refresh_management {
     color: rgb(233, 125, 36);
     position: absolute;
     left: 3%;
     top: 91.8%;
 }
 
-.back_management{
+.back_management {
     color: rgb(233, 125, 36);
     position: absolute;
     left: 95%;

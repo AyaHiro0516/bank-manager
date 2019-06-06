@@ -29,19 +29,11 @@ public class ManageController {
     }
 
     @RequestMapping(path = {"/refresh_management"}, method = RequestMethod.POST)
-    public String refreshManagement(@RequestParam(value = "chooseType", defaultValue = "") String[] chooseTypes,
-                                    @RequestParam(value = "selectStatus", defaultValue = "") String[] selectStatus, Model model) {
+    public String refreshManagement(@RequestParam(value = "chooseType", defaultValue = "") String[] chooseTypes, Model model) {
         conditionBean.setIsChooseSA(false)
                 .setIsChooseCA(false)
                 .setIsChooseLSA(false)
                 .setIsChooseLCA(false);
-
-        //有选中则执行删除操作，再将删完的数据分页展示
-        if (selectStatus.length!=0){
-            for (String s: selectStatus){
-                System.out.println(s);
-            }
-        }
 
         for (String type : chooseTypes) {
             switch (type) {
@@ -58,6 +50,23 @@ public class ManageController {
                     conditionBean.setIsChooseLCA(true);
                     break;
             }
+            System.out.println(type);
+        }
+        double totalPageNum = Math.ceil((double) loginService.getAllUsersByType(conditionBean).size() / (double) PAGE_SIZE);
+        int nowPageNum = 1;
+        if (conditionBean.isEmpty())
+            nowPageNum = 0;
+        model.addAttribute("accountList", loginService.getUsersByPage(0, PAGE_SIZE, conditionBean))
+                .addAttribute("nowPageNum", nowPageNum)
+                .addAttribute("totalPageNum", (int) totalPageNum)
+                .addAttribute("conditionBean", conditionBean);
+        return "management";
+    }
+
+    @RequestMapping(path = {"/delete_management"}, method = RequestMethod.POST)
+    public String deleteManagement(@RequestParam(value = "selectStatus", defaultValue = "") String[] selectStatus, Model model) {
+        for (String s : selectStatus) {
+            System.out.println(s);
         }
         double totalPageNum = Math.ceil((double) loginService.getAllUsersByType(conditionBean).size() / (double) PAGE_SIZE);
         int nowPageNum = 1;
