@@ -25,4 +25,7 @@ public interface AllowCheckBeanMapper {
     @Insert("INSERT INTO AllowCheckBean (userName, missNum, isAllow, role, permission) VALUES (#{userName},#{missNum},#{isAllow},#{role},#{permission})")
     void registerBean(@Param("userName") String userName, @Param("missNum") int missNum, @Param("isAllow") boolean isAllow,
                       @Param("role") String role, @Param("permission") String permission);
+
+    @Delete("DELETE FROM AllowCheckBean WHERE userName= #{userName}")
+    void deleteBean(@Param("userName") String username);
 }

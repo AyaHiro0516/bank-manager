@@ -28,20 +28,20 @@ public class LoginServiceTest {
 
     @Test
     public void getAllUsers() {
-        List<Account> accountList=new ArrayList<>();
-        if (savingAccountMapper.getAllUsers().size()!=0){
+        List<Account> accountList = new ArrayList<>();
+        if (savingAccountMapper.getAllUsers().size() != 0) {
             accountList.addAll(savingAccountMapper.getAllUsers());
         }
-        if (creditAccountMapper.getAllUsers().size()!=0){
+        if (creditAccountMapper.getAllUsers().size() != 0) {
             accountList.addAll(creditAccountMapper.getAllUsers());
         }
-        if (loanSavingAccountMapper.getAllUsers().size()!=0){
+        if (loanSavingAccountMapper.getAllUsers().size() != 0) {
             accountList.addAll(loanSavingAccountMapper.getAllUsers());
         }
-        if (loanCreditAccountMapper.getAllUsers().size()!=0){
+        if (loanCreditAccountMapper.getAllUsers().size() != 0) {
             accountList.addAll(loanCreditAccountMapper.getAllUsers());
         }
-        for (Account account: accountList){
+        for (Account account : accountList) {
             System.out.println(account.toString());
         }
     }

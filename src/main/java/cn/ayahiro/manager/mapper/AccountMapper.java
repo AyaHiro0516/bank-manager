@@ -28,4 +28,8 @@ public interface AccountMapper {
     @Update("UPDATE ${accountType} SET loan= #{amount} WHERE userName= #{userName}")
     void upDateLoan(@Param("accountType") String accountType,
                     @Param("userName") String username, @Param("amount") double amount);
+
+    @Delete("DELETE FROM ${accountType} WHERE userName= #{userName}")
+    void deleteUser(@Param("accountType") String accountType, @Param("userName") String username);
+
 }

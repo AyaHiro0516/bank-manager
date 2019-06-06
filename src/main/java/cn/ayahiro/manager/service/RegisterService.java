@@ -148,4 +148,12 @@ public class RegisterService {
     public void registerBean(String userName, int missNum, boolean isAllow, String role, String permission) {
         allowCheckBeanMapper.registerBean(userName, missNum, isAllow, role, permission);
     }
+
+    public void deleteUserByUserName(String userName, String accountType) {
+        accountMapper.deleteUser(userName, accountType);
+    }
+
+    public void deleteBeanByUserName(String userName) {
+        allowCheckBeanMapper.deleteBean(userName);
+    }
 }

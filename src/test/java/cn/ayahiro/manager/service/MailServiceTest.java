@@ -23,8 +23,8 @@ public class MailServiceTest {
     private JavaMailSender mailSender;
 
     @Test
-    public void sendSimpleMail(){
-        String content = "这是一封测试邮件"+ new Date().toString();
+    public void sendSimpleMail() {
+        String content = "这是一封测试邮件" + new Date().toString();
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo("601789175@qq.com");
