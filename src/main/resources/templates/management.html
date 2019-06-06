@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="mdui-btn mdui-color-red-500 mdui-ripple delete">Delete selected</button>
+                <button type="submit" class="mdui-btn mdui-color-red-500 mdui-ripple delete">Delete selected</button>
                 <a href="/doExcelDownloadByType">
                     <button type="button"
                             class="download_management mdui-btn mdui-btn-raised mdui-ripple mdui-color-brown-400">
@@ -74,13 +74,13 @@
                 </a>
             </div>
             <div class="mdui-col-md-10">
-                <table class="mdui-table mdui-table-selectable mdui-table-hoverable">
+                <table class="mdui-table mdui-table-hoverable">
                     <thead>
                     <tr class="table_thead">
                         <th class="mdui-table-col-numeric">
                             <p>📌 UserId</p>
                         </th>
-                        <th class="mdui-table-col-numeric">
+                        <th style="padding-left: 20px; padding-right: 0;" class="mdui-table-col-numeric">
                             <p>😃 UserName</p>
                         </th>
                         <th class="mdui-table-col-numeric">
@@ -95,16 +95,28 @@
                         <th class="mdui-table-col-numeric">
                             <p>🎨 AccountType</p>
                         </th>
+                        <th class="mdui-table-col-numeric">
+                            <p>🔧 Status</p>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="user : ${accountList}">
-                        <td th:text="${user.userId}">99999</td>
-                        <td th:text="${user.userName}">BigBoss</td>
-                        <td th:text="${user.personId}">34080319980516235X</td>
-                        <td th:text="${user.email}">601789175@qq.com</td>
-                        <td th:text="${user.balance}">10000</td>
-                        <td th:text="${user.accountType}">LoanCreditAccount</td>
+                    <tr th:each="user,userStat : ${accountList}">
+                        <td style="padding-left: 5px; padding-right: 5px;" th:text="${user.userId}">99999</td>
+                        <td style="padding-left: 5px; padding-right: 10px;" th:text="${user.userName}">BigBoss</td>
+                        <td style="padding-left: 5px" th:text="${user.personId}">34080319980516235X</td>
+                        <td style="padding-left: 5px; padding-right: 15px;" th:text="${user.email}">601789175@qq.com
+                        </td>
+                        <td style="padding-right: 35px" th:text="${user.balance}">10000</td>
+                        <td style="padding-left: 5px; padding-right: 35px;" th:text="${user.accountType}">
+                            LoanCreditAccount
+                        </td>
+                        <td style="padding-left: 5px; padding-right: 30px;">
+                            <label style="height: 19px; position: relative; top: -5px;" class="mdui-checkbox">
+                                <input name="selectStatus" th:value="${userStat.index}" type="checkbox">
+                                <i class="mdui-checkbox-icon"></i>
+                            </label>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -144,7 +156,7 @@
             </div>
             <button type="submit"
                     class="refresh_management mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-theme-accent"
-                    style="position: absolute; left: 3%; top: 91.8%;">
+                    style="position: absolute; left: 3%; top: 91%;">
                 <i class="mdui-icon material-icons">refresh</i></button>
             <!--<a href="index.html" th:href="@{/management}" class="refresh_management"><i-->
             <!--class="mdui-ripple mdui-icon material-icons">refresh</i></a>-->
