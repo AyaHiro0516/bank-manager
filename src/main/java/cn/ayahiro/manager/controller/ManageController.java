@@ -23,10 +23,15 @@ public class ManageController {
 
     private static final int PAGE_SIZE = 8;
 
+    //记录当前页数，方便全局处理
     private static int nowPageNum;
 
+    //记录当前展示状态，方便全局处理
     public static ConditionBean conditionBean = new ConditionBean(true, true, true, true);
 
+    /*
+    * 修改nowPageNum
+    * */
     @RequestMapping(path = {"/management"}, method = RequestMethod.GET)
     public String management(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
         nowPageNum = pageNum;
@@ -38,6 +43,9 @@ public class ManageController {
         return "management";
     }
 
+    /*
+    * 修改conditionBean，重置nowPageNum为1
+    * */
     @RequestMapping(path = {"/refresh_management"}, method = RequestMethod.POST)
     public String refreshManagement(@RequestParam(value = "chooseType", defaultValue = "") String[] chooseTypes, Model model) {
         conditionBean.setIsChooseSA(false)
@@ -62,32 +70,31 @@ public class ManageController {
             }
             //System.out.println(type);
         }
-        double totalPageNum = Math.ceil((double) loginService.getAllUsersByType(conditionBean).size() / (double) PAGE_SIZE);
+
         nowPageNum = 1;
+        double totalPageNum = Math.ceil((double) loginService.getAllUsersByType(conditionBean).size() / (double) PAGE_SIZE);
         List<Account> showAccountList = loginService.getUsersByPage(0, PAGE_SIZE, conditionBean);
-        if (conditionBean.isEmpty() || showAccountList.size()==0)
-            nowPageNum = 0;
         model.addAttribute("accountList", showAccountList)
-                .addAttribute("nowPageNum", nowPageNum)
+                .addAttribute("nowPageNum", showAccountList.size() == 0 ? 0 : 1)
                 .addAttribute("totalPageNum", (int) totalPageNum)
                 .addAttribute("conditionBean", conditionBean);
         return "management";
     }
 
+    /*
+    * 删除选中用户，重置nowPageNum为1，回显删除后的数据
+    * */
     @RequestMapping(path = {"/delete_management"}, method = RequestMethod.POST)
     public String deleteManagement(@RequestParam(value = "selectStatus", defaultValue = "") int[] selectStatus, Model model) {
         List<Account> accountList = loginService.getUsersByPage((nowPageNum - 1) * PAGE_SIZE, PAGE_SIZE, conditionBean);
-        for (int i = 0; i < accountList.size(); i++) {
-            for (int index : selectStatus) {
-                if (index == i) {
-                    Account user = accountList.get(i);
-                    registerService.deleteUserByUserName(user.getAccountType(), user.getUserName());
-                    registerService.deleteBeanByUserName(user.getUserName());
-                }
-            }
+        for (int index : selectStatus) {
+            Account user = accountList.get(index);
+            registerService.deleteUserByUserName(user.getAccountType(), user.getUserName());
+            registerService.deleteBeanByUserName(user.getUserName());
         }
-        double totalPageNum = Math.ceil((double) loginService.getAllUsersByType(conditionBean).size() / (double) PAGE_SIZE);
 
+        nowPageNum = 1;
+        double totalPageNum = Math.ceil((double) loginService.getAllUsersByType(conditionBean).size() / (double) PAGE_SIZE);
         List<Account> showAccountList = loginService.getUsersByPage(0, PAGE_SIZE, conditionBean);
         model.addAttribute("accountList", showAccountList)
                 .addAttribute("nowPageNum", showAccountList.size() == 0 ? 0 : 1)
