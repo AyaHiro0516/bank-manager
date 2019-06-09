@@ -1,6 +1,8 @@
 package cn.ayahiro.manager.exceptions;
 
 public class LoanException extends ATMException {
+    private static final long serialVersionUID = -2992843695318736912L;
+
     public LoanException() {
         super();
     }

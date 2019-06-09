@@ -20,10 +20,10 @@
         <script th:inline="javascript">
             var user = [[${user.userName}]];
             $("#name").val(user);
-            //alert("Be sure to enter your name: [" +user+ "] in the [ Username ] input box, otherwise the system will go wrong!");
         </script>
         <a href="/doExcelDownload">
-            <button type="button" class="download mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-brown-400" >
+            <button type="button"
+                    class="download mdui-btn mdui-btn-raised mdui-ripple mdui-btn-icon mdui-color-brown-400">
                 <i class="mdui-icon material-icons">file_download</i></button>
         </a>
         <button onclick="ajax_refresh_submit()" type="button"
@@ -59,6 +59,10 @@
                             <input class="fromName_in mdui-textfield-input" th:field="${businessBean.fromName}"
                                    placeholder="fromName"/>
                         </div>
+                        <script th:inline="javascript">
+                            var user = [[${user.userName}]];
+                            $('.fromName_in').val(user);
+                        </script>
                     </td>
                 </tr>
                 <tr>
@@ -150,6 +154,16 @@
 <script src="../static/js/mdui.js" th:src="@{/js/mdui.js}"></script>
 <script src="../static/js/style.js" th:src="@{/js/style.js}"></script>
 <script>
+    $('.fromName_in').bind({
+        blur: function () {
+            if ($('.fromName_in').val() != $("#name").val()) {
+                $('.submit').attr('disabled', "true");
+            } else {
+                $('.submit').removeAttr("disabled");
+            }
+        }
+    });
+
     function ajax_refresh_submit() {
         var businessBean = {};
         businessBean["fromName"] = $('#name').val();

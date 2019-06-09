@@ -1,10 +1,18 @@
 package cn.ayahiro.manager.service;
 
+import cn.ayahiro.manager.exceptions.ATMException;
+import cn.ayahiro.manager.exceptions.AccountNotFoundException;
+import cn.ayahiro.manager.exceptions.LoginException;
 import cn.ayahiro.manager.mapper.*;
 import cn.ayahiro.manager.model.*;
+import cn.ayahiro.manager.model.formbean.AjaxResponseBody;
 import cn.ayahiro.manager.model.formbean.AllowCheckBean;
 import cn.ayahiro.manager.model.formbean.ConditionBean;
+import cn.ayahiro.manager.model.formbean.LoginBean;
 import cn.ayahiro.manager.utils.UserUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,6 +35,49 @@ public class LoginService {
 
     private enum AccountType {
         SavingAccount, CreditAccount, LoanSavingAccount, LoanCreditAccount
+    }
+
+    public void checkUserIsAllow(LoginBean loginBean, AjaxResponseBody result) throws ATMException {
+        String userName = loginBean.getUserName();
+        String passWord = loginBean.getPassWord();
+        Account user = getUserByNameAndPassWord(userName, passWord);
+        AllowCheckBean checkBean = getBeanByUserName(userName);
+        if (user == null) {
+            //1若该用户存在  说明密码错误， update missNum  达到5次  isAllow置为false  missNum清零
+            if (checkBean != null && checkBean.isAllow()) {
+                if (checkBean.getMissNum() >= 5) {
+                    upDateMissNum(0, userName);
+                    upDateIsAllow(false, userName);
+                    result.setMsg("Today's login opportunity has been used up.");
+                    throw new LoginException("No login opportunity.");
+                } else {
+                    upDateMissNum(checkBean.getMissNum() + 1, userName);
+                    int chance = 4 - checkBean.getMissNum();
+                    if (chance == 0) {
+                        result.setMsg("Today's login opportunity has been used up.");
+                        throw new LoginException("No login opportunity.");
+                    } else {
+                        result.setMsg("Wrong password! " + chance + " chance(s) left.");
+                    }
+                }
+            } else if (checkBean != null && !checkBean.isAllow()) {
+                result.setMsg("Today's login opportunity has been used up.");
+                throw new LoginException("No login opportunity.");
+            } else {
+                //2若该用户不存在  就是不存在  不作操作
+                result.setMsg("User does not exist, or empty passWord!");
+                throw new AccountNotFoundException("User does not exist, or empty passWord.");
+            }
+        } else {
+            //此处判断miss_time和isAllow
+            if (checkBean.isAllow() && checkBean.getMissNum() < 5) {
+                //唯一登录成功的情况
+                result.setMsg("success");
+            } else if (!checkBean.isAllow()) {
+                result.setMsg("Today's login opportunity has been used up.");
+                throw new LoginException("No login opportunity.");
+            }
+        }
     }
 
     public Account getUserByNameAndPassWord(String username, String password) {
@@ -162,7 +213,7 @@ public class LoginService {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
-    
+
     public AllowCheckBean getBeanByUserName(String userName) {
         return allowCheckBeanMapper.getBeanByUserName(userName);
     }

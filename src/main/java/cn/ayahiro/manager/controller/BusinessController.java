@@ -61,7 +61,6 @@ public class BusinessController {
                     break;
             }
         } catch (ATMException e) {
-            e.printStackTrace();
             message.setInfo(e.getMessage());
         }
         model.addAttribute("message", message)
@@ -72,7 +71,7 @@ public class BusinessController {
 
     @ResponseBody
     @PostMapping("/refresh")
-    public ResponseEntity<AjaxResponseBody> getSearchResultViaAjax(@RequestBody BusinessBean businessBean) {
+    public ResponseEntity<AjaxResponseBody> refreshByAjax(@RequestBody BusinessBean businessBean) {
         AjaxResponseBody result = new AjaxResponseBody();
         Account user = loginService.getUserByUserName(businessBean.getFromName());
         if (user == null) {

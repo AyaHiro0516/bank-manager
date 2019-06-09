@@ -1,5 +1,6 @@
 package cn.ayahiro.manager.controller;
 
+import cn.ayahiro.manager.exceptions.ATMException;
 import cn.ayahiro.manager.model.Account;
 import cn.ayahiro.manager.model.formbean.*;
 import cn.ayahiro.manager.service.LoginService;
@@ -55,47 +56,20 @@ public class LoginController {
 
     @ResponseBody
     @PostMapping("/checkUserIsAllow")
-    public ResponseEntity<AjaxResponseBody> getSearchResultViaAjax(@RequestBody LoginBean loginBean) {
+    public ResponseEntity<AjaxResponseBody> checkUserIsAllowByAjax(@RequestBody LoginBean loginBean) {
         AjaxResponseBody result = new AjaxResponseBody();
         String userName = loginBean.getUserName();
         String passWord = loginBean.getPassWord();
-        Account user = loginService.getUserByNameAndPassWord(userName, passWord);
-        AllowCheckBean checkBean = loginService.getBeanByUserName(userName);
-        if (user == null) {
-            //1若该用户存在  说明密码错误， update missNum  达到5次  isAllow置为false  missNum清零
-            if (checkBean != null && checkBean.isAllow()) {
-                if (checkBean.getMissNum() >= 5) {
-                    loginService.upDateMissNum(0, userName);
-                    loginService.upDateIsAllow(false, userName);
-                    result.setMsg("Today's login opportunity has been used up.");
-                } else {
-                    loginService.upDateMissNum(checkBean.getMissNum() + 1, userName);
-                    int chance = 4 - checkBean.getMissNum();
-                    if (chance == 0) {
-                        result.setMsg("Today's login opportunity has been used up.");
-                    } else {
-                        result.setMsg("Wrong password! " + chance + " chance(s) left.");
-                    }
-                }
-            } else if (checkBean != null && !checkBean.isAllow()) {
-                result.setMsg("Today's login opportunity has been used up.");
-            } else {
-                //2若该用户不存在  就是不存在  不作操作
-                result.setMsg("User does not exist, or empty passWord!");
-            }
-        } else {
-            //此处判断miss_time和isAllow
-            if (checkBean.isAllow() && checkBean.getMissNum() < 5) {
-                result.setMsg("success");
-
+        try {
+            loginService.checkUserIsAllow(loginBean, result);
+            if ("success".equals(result.getMsg())) {
                 //此处象征性进行shiro验证
                 Subject subject = SecurityUtils.getSubject();
-                UsernamePasswordToken token=new UsernamePasswordToken(userName, UserUtil.getMD5(passWord));
+                UsernamePasswordToken token = new UsernamePasswordToken(userName, UserUtil.getMD5(passWord));
                 subject.login(token);
-
-            } else if (!checkBean.isAllow()) {
-                result.setMsg("Today's login opportunity has been used up.");
             }
+        } catch (ATMException e) {
+            //e.printStackTrace();
         }
         return ResponseEntity.ok(result);
     }
