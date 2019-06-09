@@ -61,6 +61,7 @@ public class BusinessController {
                     break;
             }
         } catch (ATMException e) {
+            e.printStackTrace();
             message.setInfo(e.getMessage());
         }
         model.addAttribute("message", message)

@@ -25,7 +25,9 @@ public class LoginService {
     @Resource(name = "allowCheckBeanMapper")
     private AllowCheckBeanMapper allowCheckBeanMapper;
 
-    private String[] acType = {"CreditAccount", "LoanCreditAccount", "SavingAccount", "LoanSavingAccount"};
+    private enum AccountType {
+        SavingAccount, CreditAccount, LoanSavingAccount, LoanCreditAccount
+    }
 
     public Account getUserByNameAndPassWord(String username, String password) {
         CreditAccount creditAccount = null;
@@ -33,27 +35,27 @@ public class LoginService {
         SavingAccount savingAccount = null;
         LoanSavingAccount loanSavingAccount = null;
         String md5_str = UserUtil.getMD5(password);
-        for (String type : acType) {
+        for (AccountType type : AccountType.values()) {
             switch (type) {
-                case "CreditAccount":
+                case CreditAccount:
                     creditAccount = creditAccountMapper.findUser(username, md5_str);
                     if (creditAccount != null) {
                         return creditAccount;
                     }
                     break;
-                case "LoanCreditAccount":
+                case LoanCreditAccount:
                     loanCreditAccount = loanCreditAccountMapper.findUser(username, md5_str);
                     if (loanCreditAccount != null) {
                         return loanCreditAccount;
                     }
                     break;
-                case "SavingAccount":
+                case SavingAccount:
                     savingAccount = savingAccountMapper.findUser(username, md5_str);
                     if (savingAccount != null) {
                         return savingAccount;
                     }
                     break;
-                case "LoanSavingAccount":
+                case LoanSavingAccount:
                     loanSavingAccount = loanSavingAccountMapper.findUser(username, md5_str);
                     if (loanSavingAccount != null) {
                         return loanSavingAccount;
@@ -69,27 +71,27 @@ public class LoginService {
         LoanCreditAccount loanCreditAccount = null;
         SavingAccount savingAccount = null;
         LoanSavingAccount loanSavingAccount = null;
-        for (String type : acType) {
+        for (AccountType type : AccountType.values()) {
             switch (type) {
-                case "CreditAccount":
+                case CreditAccount:
                     creditAccount = creditAccountMapper.getUser(username);
                     if (creditAccount != null) {
                         return creditAccount;
                     }
                     break;
-                case "LoanCreditAccount":
+                case LoanCreditAccount:
                     loanCreditAccount = loanCreditAccountMapper.getUser(username);
                     if (loanCreditAccount != null) {
                         return loanCreditAccount;
                     }
                     break;
-                case "SavingAccount":
+                case SavingAccount:
                     savingAccount = savingAccountMapper.getUser(username);
                     if (savingAccount != null) {
                         return savingAccount;
                     }
                     break;
-                case "LoanSavingAccount":
+                case LoanSavingAccount:
                     loanSavingAccount = loanSavingAccountMapper.getUser(username);
                     if (loanSavingAccount != null) {
                         return loanSavingAccount;
@@ -160,8 +162,7 @@ public class LoginService {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
-
-
+    
     public AllowCheckBean getBeanByUserName(String userName) {
         return allowCheckBeanMapper.getBeanByUserName(userName);
     }

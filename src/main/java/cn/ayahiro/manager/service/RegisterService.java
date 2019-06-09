@@ -17,7 +17,9 @@ public class RegisterService {
     @Resource(name = "allowCheckBeanMapper")
     private AllowCheckBeanMapper allowCheckBeanMapper;
 
-    private String[] acType = {"CreditAccount", "LoanCreditAccount", "SavingAccount", "LoanSavingAccount"};
+    private enum AccountType {
+        SavingAccount, CreditAccount, LoanSavingAccount, LoanCreditAccount
+    }
 
     public boolean checkBusinessBean(BusinessBean businessBean) {
         boolean flag = true;
@@ -135,8 +137,8 @@ public class RegisterService {
 
     public boolean isRegister(String username) {
         boolean flag = false;
-        for (String type : acType) {
-            long count = accountMapper.isRegister(type, username);
+        for (AccountType type : AccountType.values()) {
+            long count = accountMapper.isRegister(type.name(), username);
             if (count == 1) {
                 flag = true;
                 break;
