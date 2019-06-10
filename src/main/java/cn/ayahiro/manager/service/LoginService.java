@@ -1,5 +1,6 @@
 package cn.ayahiro.manager.service;
 
+import cn.ayahiro.manager.aspect.LoginAspect;
 import cn.ayahiro.manager.exceptions.ATMException;
 import cn.ayahiro.manager.exceptions.AccountNotFoundException;
 import cn.ayahiro.manager.exceptions.LoginException;
@@ -13,6 +14,8 @@ import cn.ayahiro.manager.utils.UserUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,6 +35,8 @@ public class LoginService {
     private LoanSavingAccountMapper loanSavingAccountMapper;
     @Resource(name = "allowCheckBeanMapper")
     private AllowCheckBeanMapper allowCheckBeanMapper;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 
     private enum AccountType {
         SavingAccount, CreditAccount, LoanSavingAccount, LoanCreditAccount
@@ -219,10 +224,16 @@ public class LoginService {
     }
 
     public void upDateMissNum(int missNum, String userName) {
+        LOGGER.info("用户: {}输入密码错误次数为: {}", userName, missNum);
         allowCheckBeanMapper.upDateMissNum(missNum, userName);
     }
 
     public void upDateIsAllow(boolean isAllow, String userName) {
+        if (!isAllow) {
+            LOGGER.info("用户: {}的账号被锁定了", userName);
+        } else {
+            LOGGER.info("用户: {}的账号已解除锁定", userName);
+        }
         allowCheckBeanMapper.upDateIsAllow(isAllow, userName);
     }
 }

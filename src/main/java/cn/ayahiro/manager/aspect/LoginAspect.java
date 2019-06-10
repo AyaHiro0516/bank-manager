@@ -24,19 +24,19 @@ public class LoginAspect {
     public void checkUserIsAllowPointCut() {
     }
 
-    //修改失败次数切面
-    @Pointcut("execution(* cn.ayahiro.manager.service.LoginService.upDateMissNum(..)))")
-    public void upDateMissNumPointCut() {
-    }
-
-    //修改锁定状态切面
-    @Pointcut("execution(* cn.ayahiro.manager.service.LoginService.upDateIsAllow(..)))")
-    public void upDateIsAllowPointCut() {
-    }
+//    //修改失败次数切面
+//    @Pointcut("execution(* cn.ayahiro.manager.service.LoginService.upDateMissNum(..)))")
+//    public void upDateMissNumPointCut() {
+//    }
+//
+//    //修改锁定状态切面
+//    @Pointcut("execution(* cn.ayahiro.manager.service.LoginService.upDateIsAllow(..)))")
+//    public void upDateIsAllowPointCut() {
+//    }
 
     @Before(value = "checkUserIsAllowPointCut() && args(loginBean,result)", argNames = "loginBean,result")
     public void loginBefore(LoginBean loginBean, AjaxResponseBody result) {
-        LOGGER.info("用户:{}尝试登录", loginBean.getUserName());
+        LOGGER.info("用户: {}尝试登录", loginBean.getUserName());
     }
 
     @After(value = "checkUserIsAllowPointCut() && args(loginBean,result)", argNames = "loginBean,result")
@@ -45,21 +45,7 @@ public class LoginAspect {
     }
 
     @AfterThrowing(value = "checkUserIsAllowPointCut()", throwing = "ex")
-    public void loginAfter(ATMException ex) {
+    public void loginAfterThrowing(ATMException ex) {
         LOGGER.warn("用户登录出现异常，原因是: {}", ex.getMessage());
-    }
-
-    @After(value = "upDateMissNumPointCut() && args(missNum,userName)", argNames = "missNum,userName")
-    public void loginAfter(int missNum, String userName) {
-        LOGGER.info("用户: {}输入密码失败的次数为: {}", userName, missNum);
-    }
-
-    @After(value = "upDateIsAllowPointCut() && args(isAllow,userName)", argNames = "isAllow,userName")
-    public void loginAfter(boolean isAllow, String userName) {
-        if (!isAllow) {
-            LOGGER.info("用户: {}的账号被锁定了", userName);
-        } else {
-            LOGGER.info("用户: {}的账号已解除锁定", userName);
-        }
     }
 }
