@@ -28,9 +28,11 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/refresh", "perms[update]");
         //ExcelDownloadController
         filterChainDefinitionMap.put("/doExcelDownload", "roles[user]");
-        //filterChainDefinitionMap.put("/doExcelDownloadByType", "roles[admin]");
+        filterChainDefinitionMap.put("/doExcelDownloadByType", "roles[admin]");
         //ManageController
-        //filterChainDefinitionMap.put("/management", "roles[admin]");
+        filterChainDefinitionMap.put("/management", "roles[admin]");
+        filterChainDefinitionMap.put("/delete_management", "perms[delete]");
+        filterChainDefinitionMap.put("/refresh_management", "roles[admin]");
         //CaptchaController
         filterChainDefinitionMap.put("/kaptcha.jpg", "anon");
 

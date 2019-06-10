@@ -1,5 +1,6 @@
 package cn.ayahiro.manager.controller;
 
+import cn.ayahiro.manager.aspect.BusinessAspect;
 import cn.ayahiro.manager.exceptions.ATMException;
 import cn.ayahiro.manager.model.Account;
 import cn.ayahiro.manager.model.formbean.*;
@@ -8,6 +9,8 @@ import cn.ayahiro.manager.utils.UserUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
     @Resource(name = "loginService")
     private LoginService loginService;
 
@@ -39,6 +44,9 @@ public class LoginController {
     @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
     public String login(Model model) {
         Subject subject = SecurityUtils.getSubject();
+        if (subject.getPrincipal() != null) {
+            LOGGER.info("用户: {}退出系统", subject.getPrincipal());
+        }
         subject.logout();
         model.addAttribute("loginBean", new LoginBean())
                 .addAttribute("message", new Message());
