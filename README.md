@@ -37,3 +37,14 @@
 ![business](页面截图/business.png 'business')
 ##### management
 ![management](页面截图/management.png 'management')
+
+### 本地测试(玩耍)步骤
+---
+环境：JDK1.8、Maven、MySql5.6+  
+1. git clone git@github.com:AyaHiro0516/bank-manager.git
+2. 创建数据库setraining, 编码为UTF-8. 运行setraining.sql建表
+3. 修改application.yml里datasource部分，改成本地的username、password、url
+4. 运行test.java.cn.ayahiro.manager.service.RegisterServiceTest生成用户数据, password为qqqqq
+5. 添加管理者账户：4个用户表中任选一个填好必要数据后，再在allowcheckbean表中增加对应记录，role字段设为：admin,user   permission字段设为：update,delete
+6. 想看日志效果，可以把logback.xml的appender标签和root标签中有关"file"部分的注释去掉，日志记录在根目录logback/logfile.log
+7. 运行main.java.cn.ayahiro.manager.BankManagerApplication中的main方法，浏览器输入http://localhost:8080/index   启动！
