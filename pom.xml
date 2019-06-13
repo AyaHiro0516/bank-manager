@@ -66,6 +66,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!--sql server数据库-->
+        <!--<dependency>-->
+            <!--<groupId>com.microsoft.sqlserver</groupId>-->
+            <!--<artifactId>sqljdbc4</artifactId>-->
+            <!--<version>4.0</version>-->
+        <!--</dependency>-->
         <!--数据库连接池-->
         <!--<dependency>-->
         <!--<groupId>com.zaxxer</groupId>-->
