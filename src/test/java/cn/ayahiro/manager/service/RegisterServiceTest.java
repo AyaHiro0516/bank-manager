@@ -35,6 +35,11 @@ public class RegisterServiceTest {
             allowCheckBeanMapper.registerBean(userName, 0, true, "user", "update");
             accountMapper.register(accountType, userId, UserUtil.getMD5(passWord), personId, userName, email, address, 0);
         }
+    }
 
+    @Test
+    public void deteteBean() throws Exception {
+        accountMapper.deleteUser("LoanCreditAccount", "user0000");
+        allowCheckBeanMapper.deleteBean("user0000");
     }
 }

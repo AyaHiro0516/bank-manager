@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80012
 File Encoding         : 65001
 
-Date: 2019-06-10 19:52:10
+Date: 2019-06-15 10:03:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,7 +42,9 @@ CREATE TABLE `creditaccount` (
   `balance` double(20,0) NOT NULL,
   `ceiling` double(20,0) DEFAULT NULL,
   `accountType` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`userName`)
+  PRIMARY KEY (`userId`),
+  KEY `userName_fkca` (`userName`),
+  CONSTRAINT `userName_fkca` FOREIGN KEY (`userName`) REFERENCES `allowcheckbean` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -60,7 +62,9 @@ CREATE TABLE `loancreditaccount` (
   `ceiling` double(20,0) DEFAULT NULL,
   `loan` double(20,0) DEFAULT NULL,
   `accountType` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`userName`)
+  PRIMARY KEY (`userId`),
+  KEY `userName_fklca` (`userName`),
+  CONSTRAINT `userName_fklca` FOREIGN KEY (`userName`) REFERENCES `allowcheckbean` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -77,7 +81,9 @@ CREATE TABLE `loansavingaccount` (
   `balance` double(20,0) NOT NULL,
   `loan` double(20,0) DEFAULT NULL,
   `accountType` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`userName`)
+  PRIMARY KEY (`userId`),
+  KEY `userName_fklsa` (`userName`),
+  CONSTRAINT `userName_fklsa` FOREIGN KEY (`userName`) REFERENCES `allowcheckbean` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -93,6 +99,8 @@ CREATE TABLE `savingaccount` (
   `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `balance` double(20,0) NOT NULL,
   `accountType` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`userName`)
+  PRIMARY KEY (`userId`),
+  KEY `userName_fksa` (`userName`),
+  CONSTRAINT `userName_fksa` FOREIGN KEY (`userName`) REFERENCES `allowcheckbean` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -89,6 +89,7 @@ public class ManageController {
         List<Account> accountList = loginService.getUsersByPage((nowPageNum - 1) * PAGE_SIZE, PAGE_SIZE, conditionBean);
         for (int index : selectStatus) {
             Account user = accountList.get(index);
+            //有外键约束，先删除子表的数据，再删除主表的数据
             registerService.deleteUserByUserName(user.getAccountType(), user.getUserName());
             registerService.deleteBeanByUserName(user.getUserName());
         }
