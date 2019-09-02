@@ -39,7 +39,7 @@ public class LoginService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 
     private enum AccountType {
-        SavingAccount, CreditAccount, LoanSavingAccount, LoanCreditAccount
+        savingaccount, creditaccount, loansavingaccount, loancreditaccount
     }
 
     public void checkUserIsAllow(LoginBean loginBean, AjaxResponseBody result) throws ATMException {
@@ -93,25 +93,25 @@ public class LoginService {
         String md5_str = UserUtil.getMD5(password);
         for (AccountType type : AccountType.values()) {
             switch (type) {
-                case CreditAccount:
+                case creditaccount:
                     creditAccount = creditAccountMapper.findUser(username, md5_str);
                     if (creditAccount != null) {
                         return creditAccount;
                     }
                     break;
-                case LoanCreditAccount:
+                case loancreditaccount:
                     loanCreditAccount = loanCreditAccountMapper.findUser(username, md5_str);
                     if (loanCreditAccount != null) {
                         return loanCreditAccount;
                     }
                     break;
-                case SavingAccount:
+                case savingaccount:
                     savingAccount = savingAccountMapper.findUser(username, md5_str);
                     if (savingAccount != null) {
                         return savingAccount;
                     }
                     break;
-                case LoanSavingAccount:
+                case loansavingaccount:
                     loanSavingAccount = loanSavingAccountMapper.findUser(username, md5_str);
                     if (loanSavingAccount != null) {
                         return loanSavingAccount;
@@ -129,25 +129,25 @@ public class LoginService {
         LoanSavingAccount loanSavingAccount = null;
         for (AccountType type : AccountType.values()) {
             switch (type) {
-                case CreditAccount:
+                case creditaccount:
                     creditAccount = creditAccountMapper.getUser(username);
                     if (creditAccount != null) {
                         return creditAccount;
                     }
                     break;
-                case LoanCreditAccount:
+                case loancreditaccount:
                     loanCreditAccount = loanCreditAccountMapper.getUser(username);
                     if (loanCreditAccount != null) {
                         return loanCreditAccount;
                     }
                     break;
-                case SavingAccount:
+                case savingaccount:
                     savingAccount = savingAccountMapper.getUser(username);
                     if (savingAccount != null) {
                         return savingAccount;
                     }
                     break;
-                case LoanSavingAccount:
+                case loansavingaccount:
                     loanSavingAccount = loanSavingAccountMapper.getUser(username);
                     if (loanSavingAccount != null) {
                         return loanSavingAccount;

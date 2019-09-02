@@ -19,27 +19,27 @@ public class RegisterServiceTest {
     @Resource(name = "allowCheckBeanMapper")
     private AllowCheckBeanMapper allowCheckBeanMapper;
 
-    private String[] acType = {"CreditAccount", "LoanCreditAccount", "SavingAccount", "LoanSavingAccount"};
+    private String[] acType = {"creditaccount", "loancreditaccount", "savingaccount", "loansavingaccount"};
 
     @Test
     public void register() throws Exception {
-        for (int i = 0; i < 56; ++i) {
-            int type = new Random().nextInt(4);
-            String accountType = acType[type];
-            long userId = UserUtil.makeId();
-            String passWord = "qqqqq";
-            String personId = "34080319980516235X";
-            String userName = "user000" + i;
-            String email = "601789175@qq.com";
-            String address = "some";
-            allowCheckBeanMapper.registerBean(userName, 0, true, "user", "update");
-            accountMapper.register(accountType, userId, UserUtil.getMD5(passWord), personId, userName, email, address, 0);
-        }
+//        for (int i = 0; i < 56; ++i) {
+//            int type = new Random().nextInt(4);
+//            String accountType = acType[type];
+//            long userId = UserUtil.makeId();
+//            String passWord = "qqqqq";
+//            String personId = "34080319980516235X";
+//            String userName = "user000" + i;
+//            String email = "601789175@qq.com";
+//            String address = "some";
+//            allowCheckBeanMapper.registerBean(userName, 0, true, "user", "update");
+//            accountMapper.register(accountType, userId, UserUtil.getMD5(passWord), personId, userName, email, address, 0);
+//        }
     }
 
     @Test
     public void deteteBean() throws Exception {
-        accountMapper.deleteUser("LoanCreditAccount", "user0000");
-        allowCheckBeanMapper.deleteBean("user0000");
+//        accountMapper.deleteUser("LoanCreditAccount", "user0000");
+//        allowCheckBeanMapper.deleteBean("user0000");
     }
 }

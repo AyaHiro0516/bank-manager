@@ -7,16 +7,18 @@ import cn.ayahiro.manager.model.LoanSavingAccount;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.util.ResourceUtils;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
 import java.util.List;
 
 public class ExcelUtil {
+    private static String templatePath = "static/excel/template.xlsx";
+
     public static void templateExportByUser(OutputStream out, Account user) throws IOException {
         // 1.读取Excel模板
-        File file = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + "static/excel/template.xlsx");
-        InputStream in = new FileInputStream(file);
+        ClassPathResource cpr = new ClassPathResource(templatePath);
+        InputStream in = cpr.getInputStream();
         XSSFWorkbook wb = new XSSFWorkbook(in);
         // 2.读取模板里面的所有Sheet
         XSSFSheet sheet = wb.getSheetAt(0);
@@ -58,8 +60,8 @@ public class ExcelUtil {
 
     public static void templateExportByUserList(OutputStream out, List<Account> users) throws IOException {
         // 1.读取Excel模板
-        File file = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + "static/excel/template.xlsx");
-        InputStream in = new FileInputStream(file);
+        ClassPathResource cpr = new ClassPathResource(templatePath);
+        InputStream in = cpr.getInputStream();
         XSSFWorkbook wb = new XSSFWorkbook(in);
         // 2.读取模板里面的所有Sheet
         XSSFSheet sheet = wb.getSheetAt(0);

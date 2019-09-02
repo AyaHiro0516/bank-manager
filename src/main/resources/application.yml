@@ -1,15 +1,17 @@
 server:
-  port: 8080
+  port: 8964
 
 spring:
+  thymeleaf:
+    suffix: .html
   main:
     allow-bean-definition-overriding: true
 
   datasource:
     username: root
     password: bxy0516
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/setraining?serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.103.81.78:3306/setraining?serverTimezone=GMT%2B8
 #    username: bxy
 #    password: bxy0516
 #    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -36,8 +38,9 @@ spring:
     default-encoding: UTF-8
     protocol: smtp
     host: smtp.qq.com
+    port: 587
     username: 601789175@qq.com
-    password: ybakkynzycizbcca
+    password: nstexbarhrhqbbgi
     properties:
       mail:
         smtp:

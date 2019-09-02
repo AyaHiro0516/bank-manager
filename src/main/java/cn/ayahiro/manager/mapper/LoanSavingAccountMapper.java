@@ -11,12 +11,12 @@ import java.util.List;
 @Mapper
 @Repository("loanSavingAccountMapper")
 public interface LoanSavingAccountMapper extends AccountMapper {
-    @Select({"SELECT * FROM LoanSavingAccount WHERE userName= #{userName} AND passWord= #{passWord}"})
+    @Select({"SELECT * FROM loansavingaccount WHERE userName= #{userName} AND passWord= #{passWord}"})
     LoanSavingAccount findUser(@Param("userName") String username, @Param("passWord") String password);
 
-    @Select({"SELECT * FROM LoanSavingAccount WHERE userName= #{userName}"})
+    @Select({"SELECT * FROM loansavingaccount WHERE userName= #{userName}"})
     LoanSavingAccount getUser(@Param("userName") String username);
 
-    @Select({"SELECT * FROM LoanSavingAccount"})
+    @Select({"SELECT * FROM loansavingaccount"})
     List<LoanSavingAccount> getAllUsers();
 }

@@ -48,8 +48,8 @@ public class LoginServiceTest {
 
     @Test
     public void getBeanByName() throws Exception {
-        AllowCheckBean allowCheckBean = allowCheckBeanMapper.getBeanByUserName("boss");
-        System.out.println(allowCheckBean.toString());
+//        AllowCheckBean allowCheckBean = allowCheckBeanMapper.getBeanByUserName("boss");
+//        System.out.println(allowCheckBean.toString());
     }
 
 }

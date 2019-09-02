@@ -11,12 +11,12 @@ import java.util.List;
 @Mapper
 @Repository("creditAccountMapper")
 public interface CreditAccountMapper extends AccountMapper {
-    @Select({"SELECT * FROM CreditAccount WHERE userName= #{userName} AND passWord= #{passWord}"})
+    @Select({"SELECT * FROM creditaccount WHERE userName= #{userName} AND passWord= #{passWord}"})
     CreditAccount findUser(@Param("userName") String username, @Param("passWord") String password);
 
-    @Select({"SELECT * FROM CreditAccount WHERE userName= #{userName}"})
+    @Select({"SELECT * FROM creditaccount WHERE userName= #{userName}"})
     CreditAccount getUser(@Param("userName") String username);
 
-    @Select({"SELECT * FROM CreditAccount"})
+    @Select({"SELECT * FROM creditaccount"})
     List<CreditAccount> getAllUsers();
 }

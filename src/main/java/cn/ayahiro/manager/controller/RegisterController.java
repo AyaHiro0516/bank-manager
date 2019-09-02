@@ -35,9 +35,9 @@ public class RegisterController {
         }
         Message message = new Message();
         message.setInfo("Success!");
-        registerService.register(registerBean);
-        //再注册一份用户登录信息 userName isAllow miss_time
+        //有外键约束  先添加主表记录，再添加从表记录
         registerService.registerBean(registerBean.getUserName(), 0, true, "user", "update");
+        registerService.register(registerBean);
         model.addAttribute("message", message)
                 .addAttribute("registerBean", new RegisterBean());
         return "register";

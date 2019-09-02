@@ -18,7 +18,7 @@ public class RegisterService {
     private AllowCheckBeanMapper allowCheckBeanMapper;
 
     private enum AccountType {
-        SavingAccount, CreditAccount, LoanSavingAccount, LoanCreditAccount
+        savingaccount, creditaccount, loansavingaccount, loancreditaccount
     }
 
     public boolean checkBusinessBean(BusinessBean businessBean) {
